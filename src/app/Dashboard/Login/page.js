@@ -140,6 +140,35 @@ const Login = () => {
   // navigation
   const router = useRouter();
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setloading(true);
+  //     const response = await axios.post(
+  //       "https://pharmapedia-me.vercel.app/api/User/Login",
+  //       userlogin,
+  //       { timeout: 10000 } // Timeout after 10 seconds
+  //     );
+  //     console.log("Login successful:", response.data);
+  //     const isVerified = response.data.isVerified;
+  //     if (isVerified) {
+  //       localStorage.setItem("token", response.data.token);
+  //       localStorage.setItem("userId", response.data.userId);
+  //       toast.success("Login successful");
+  //       router.push("/Dashboard/Home");
+  //     } else {
+  //       toast.warning("You are not verified for login 😢");
+  //       router.push("/Dashboard/Login");
+  //     }
+  //   } catch (error) {
+  //     toast.error("Something went wrong");
+  //     console.error("Error response:", error.response);
+  //     console.error("Error message:", error.message);
+  //   } finally {
+  //     setloading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -162,12 +191,14 @@ const Login = () => {
       }
     } catch (error) {
       toast.error("Something went wrong");
-      console.error("Error response:", error.response);
+      console.error("Error response:", error.response ? error.response.data : 'No response data');
       console.error("Error message:", error.message);
+      console.error("Error config:", error.config);
     } finally {
       setloading(false);
     }
   };
+
 
   useEffect(() => {
     if (userlogin.email.length > 0 && userlogin.password.length > 0) {
