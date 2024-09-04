@@ -184,10 +184,12 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
         toast.success("Login successful");
-        router.push("/Dashboard/Home");
+        // router.push("/Dashboard/Home");
+        router.push("https://pharmapedia-me.vercel.app/Dashboard/Home");
       } else {
         toast.warning("You are not verified for login 😢");
-        router.push("/Dashboard/Login");
+        // router.push("/Dashboard/Login");
+        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
       }
     } catch (error) {
       toast.error("Something went wrong");
