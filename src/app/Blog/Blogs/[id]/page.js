@@ -293,53 +293,12 @@ const Page = ({ params }) => {
           </div>
         </div>
       </section>
-
+4
       {/* FORM */}
       <section className="m-auto overflow-hidden relative" id='contact' >
         <div className="w-10/12 m-auto flex flex-col-reverse md:flex-row items-center justify-center gap-20 relative py-20">
           <div className="left w-full md:w-1/2 relative z-30">
-            <form action="">
-              <div className="flex justify-between items-center gap-2 lg:gap-7 xl:gap-10 mb-4">
-                <div className="flex flex-col items-start justify-center gap-1 w-6/12">
-                  <label htmlFor="firstName" >First Name</label>
-                  <input type="text" name="firstName" id="firstName" placeholder='First Name' className='h-12 w-full rounded-lg p-3 outline-none border-slate-400 border' required />
-                </div>
-                <div className="flex flex-col items-start justify-center gap-1 w-6/12">
-                  <label htmlFor="lastName" className='text-sm font-medium leading-6'>Last Name</label>
-                  <input type="text" name="lastName" id="lastName" placeholder='Last Name' className='h-12 w-full rounded-lg p-3 outline-none border-slate-400 border' required />
-                </div>
-              </div>
-
-              <div className="flex flex-col mb-4">
-                <label htmlFor="email" className='text-sm font-medium leading-6'>Email</label>
-                <input type="email" name="email" id="email" placeholder='Example@company.com' required className='h-12 w-full rounded-lg p-3 outline-none border-slate-400 border' />
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="phone" className='text-sm font-medium leading-6'>Phone number</label>
-                <div className='h-12 w-full rounded-lg outline-none border-slate-400 border phone-input '>
-                  <select id="country-code" name="country-code" className='h-11 rounded-l-lg outline-none w-3/12 sm:w-2/12 md:w-3/12 lg:w-3/12 xl:w-2/12'>
-                    <option value="PK">+92</option>
-                    <option value="IND">+91</option>
-                  </select>
-                  <input type="tel" id="phone" name="phone" placeholder="Phone number" className='h-11 w-9/12 sm:w-10/12 md:w-9/12 lg:w-9/12 xl:w-10/12 px-3 outline-none rounded-2xl' />
-                </div>
-              </div>
-
-              <div className="flex flex-col mb-5">
-                <label htmlFor="message" className='text-sm font-medium leading-6'>Message</label>
-                <textarea name="message" id="message" className='h-32 w-full rounded-lg p-3 outline-none border-slate-400 border resize-none'></textarea>
-              </div>
-
-              <div className="flex mb-8 gap-3 items-center justify-start">
-                <input type="checkbox" id="myCheckbox" className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded outline-none " />
-                <p className="font-medium text-base">You agree to our friendly <a href="" className='underline'>privacy policy.</a></p>
-              </div>
-
-              <button className="button-filledext">
-                Send Message
-              </button>
-            </form>
+            <Form />
           </div>
 
           <div className="right w-full md:w-1/2 relative z-30">
