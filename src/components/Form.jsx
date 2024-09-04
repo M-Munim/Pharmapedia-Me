@@ -1,4 +1,4 @@
-  import { useState } from 'react';
+import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,8 +21,9 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await fetch('http://localhost:3000/api/ContactForm', {
+    // local
+    // const response = await fetch('http://localhost:3000/api/ContactForm', {
+    const response = await fetch('https://pharmapedia-me.vercel.app/api/ContactForm', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

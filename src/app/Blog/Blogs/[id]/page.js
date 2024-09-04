@@ -19,7 +19,9 @@ const Page = ({ params }) => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/Blog/${blogSpecificId}`);
+        // local
+        // const response = await axios.get(`http://localhost:3000/api/Blog/${blogSpecificId}`);
+        const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Blog/${blogSpecificId}`);
         setBlogs(response.data.result);
         console.log('specific id of Blogs:', response.data.result);
       } catch (error) {
@@ -37,7 +39,9 @@ const Page = ({ params }) => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/Blog');
+        // local
+        // const response = await axios.get('http://localhost:3000/api/Blog');
+        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
         setAllBlogs(response.data.result);
         // console.log(response.data.result);
 

@@ -17,7 +17,9 @@ const Page = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/Product');
+        // local
+        // const response = await axios.get('http://localhost:3000/api/Product');
+        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Product');
         setProducts(response.data.result);
         console.log(response.data.result);
       } catch (error) {

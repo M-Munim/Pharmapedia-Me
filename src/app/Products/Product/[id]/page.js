@@ -204,7 +204,9 @@ const Page = ({ params }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/Product/${productSpecificId}`);
+        // local
+        // const response = await axios.get(`http://localhost:3000/api/Product/${productSpecificId}`);
+        const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Product/${productSpecificId}`);
         console.log(response.data.result);
         setProducts(response.data.result);
       } catch (error) {
