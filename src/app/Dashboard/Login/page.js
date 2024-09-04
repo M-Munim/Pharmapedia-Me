@@ -22,30 +22,33 @@
 //     try {
 //       setloading(true);
 //       const response = await axios.post(
-//         // local
-//         // "http://localhost:3000/api/User/Login",
 //         "https://pharmapedia-me.vercel.app/api/User/Login",
-//         userlogin
+//         userlogin,
+//         { timeout: 10000 } // Timeout after 10 seconds
 //       );
-//       console.log("login successfully", response.data);
-//       const isVerfied = response.data.isVerfied;
-//       if (isVerfied === true) {
+//       console.log("Login successful:", response.data);
+//       const isVerified = response.data.isVerified;
+//       if (isVerified) {
 //         localStorage.setItem("token", response.data.token);
 //         localStorage.setItem("userId", response.data.userId);
-//         toast.success("Login successfully");
-//         router.push("/Dashboard/Home");
+//         toast.success("Login successful");
+//         // router.push("/Dashboard/Home");
+//         router.push("https://pharmapedia-me.vercel.app/Dashboard/Home");
 //       } else {
-//         toast.warning("You Are Not Verify For Login😢");
-//         router.push("/Dashboard/Login");
+//         toast.warning("You are not verified for login 😢");
+//         // router.push("/Dashboard/Login");
+//         router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
 //       }
 //     } catch (error) {
 //       toast.error("Something went wrong");
-//       console.log("Error", error);
-
+//       console.error("Error response:", error.response ? error.response.data : 'No response data');
+//       console.error("Error message:", error.message);
+//       console.error("Error config:", error.config);
 //     } finally {
 //       setloading(false);
 //     }
 //   };
+
 
 //   useEffect(() => {
 //     if (userlogin.email.length > 0 && userlogin.password.length > 0) {
@@ -101,7 +104,7 @@
 //         </div>
 //         <button
 //           type="submit"
-//           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md bg-blue transition duration-300"
+//           className="w-full bg-blue text-white py-2 px-4 rounded-md transition duration-300"
 //           disabled={buttonDisable || loading}
 //         >
 //           {loading ? "Logging in..." : "Login"}
@@ -120,30 +123,26 @@
 
 
 
-
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const [userlogin, setuserlogin] = useState({
+  const [userlogin, setUserlogin] = useState({
     email: "",
     password: "",
   });
-  // for button disabled
-  const [buttonDisable, setbuttondisable] = useState(true);
-  // for loading
-  const [loading, setloading] = useState(false);
-  // navigation
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     try {
-      setloading(true);
+      setLoading(true);
       const response = await axios.post(
         "https://pharmapedia-me.vercel.app/api/User/Login",
         userlogin,
@@ -155,12 +154,10 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.userId);
         toast.success("Login successful");
-        // router.push("/Dashboard/Home");
-        router.push("https://pharmapedia-me.vercel.app/Dashboard/Home");
+        router.push("/Dashboard/Home");
       } else {
         toast.warning("You are not verified for login 😢");
-        // router.push("/Dashboard/Login");
-        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+        router.push("/Dashboard/Login");
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -168,17 +165,12 @@ const Login = () => {
       console.error("Error message:", error.message);
       console.error("Error config:", error.config);
     } finally {
-      setloading(false);
+      setLoading(false);
     }
-  };
-
+  }, [userlogin, router]);
 
   useEffect(() => {
-    if (userlogin.email.length > 0 && userlogin.password.length > 0) {
-      setbuttondisable(false);
-    } else {
-      setbuttondisable(true);
-    }
+    setButtonDisabled(!(userlogin.email && userlogin.password));
   }, [userlogin]);
 
   return (
@@ -202,7 +194,7 @@ const Login = () => {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
             value={userlogin.email}
             onChange={(e) =>
-              setuserlogin({ ...userlogin, email: e.target.value })
+              setUserlogin(prevState => ({ ...prevState, email: e.target.value }))
             }
           />
         </div>
@@ -221,22 +213,17 @@ const Login = () => {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
             value={userlogin.password}
             onChange={(e) =>
-              setuserlogin({ ...userlogin, password: e.target.value })
+              setUserlogin(prevState => ({ ...prevState, password: e.target.value }))
             }
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue text-white py-2 px-4 rounded-md transition duration-300"
-          disabled={buttonDisable || loading}
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md transition duration-300"
+          disabled={buttonDisabled || loading}
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-        {/* <div className="mt-4 flex justify-end">
-          <a href="/Register" className="text-blue-500 hover:underline">
-            Register
-          </a>
-        </div> */}
       </form>
     </div>
   );
