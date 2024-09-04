@@ -202,7 +202,7 @@ export default function Navbar() {
               </ul>
             </div>
             <div className="hidden lg:flex items-center justify-center gap-5">
-              <div>
+              {/* <div>
                 {!showSearchBox && (
                   <IoIosSearch
                     onClick={toggleSearchBox}
@@ -231,7 +231,7 @@ export default function Navbar() {
                     />
                   </form>
                 )}
-              </div>
+              </div> */}
               <button
                 className={` ${
                   moveTo !== "Home" ? "button-outlined2" : "button-outlined"

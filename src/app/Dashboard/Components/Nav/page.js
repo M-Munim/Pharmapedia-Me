@@ -31,7 +31,10 @@ const Nav = () => {
 
       // Show success message
       toast.success("Logged out successfully");
-      router.push("/Dashboard/Login");
+      // local
+      // router.push("/Dashboard/Login");
+      router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
       toast.error("Failed to log out. Please try again.");
