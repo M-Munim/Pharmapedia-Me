@@ -32,8 +32,8 @@ const Nav = () => {
       // Show success message
       toast.success("Logged out successfully");
       // local
-      // router.push("/Dashboard/Login");
-      router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+      router.push("/Dashboard/Login");
+      // router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
 
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
