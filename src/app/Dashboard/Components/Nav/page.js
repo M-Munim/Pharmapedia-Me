@@ -33,7 +33,7 @@ const Nav = () => {
       toast.success("Logged out successfully");
       // local
       // router.push("/Dashboard/Login");
-      // ok
+      // okk
       router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
 
     } catch (error) {
