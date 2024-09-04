@@ -11,6 +11,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import { blogs } from '@/app/data';
 import axios from 'axios';
 import Link from 'next/link';
+import Form from '@/components/Form';
 
 const Page = ({ params }) => {
   const blogSpecificId = params.id;
@@ -293,7 +294,7 @@ const Page = ({ params }) => {
           </div>
         </div>
       </section>
-4
+
       {/* FORM */}
       <section className="m-auto overflow-hidden relative" id='contact' >
         <div className="w-10/12 m-auto flex flex-col-reverse md:flex-row items-center justify-center gap-20 relative py-20">
