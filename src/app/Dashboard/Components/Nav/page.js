@@ -30,7 +30,7 @@ const Nav = () => {
 
 
       // Show success message
-      toast.success("Logged out successfully");
+      toast.success("Logged out successfully!!!");
       // local
       // router.push("/Dashboard/Login");
       // okk
