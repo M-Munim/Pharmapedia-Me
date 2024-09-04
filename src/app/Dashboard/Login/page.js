@@ -223,7 +223,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md transition duration-300"
+          className="w-full bg-blue text-white py-2 px-4 rounded-md transition duration-300"
           disabled={buttonDisable || loading}
         >
           {loading ? "Logging in..." : "Login"}
