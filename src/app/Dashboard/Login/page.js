@@ -22,7 +22,9 @@ const Login = () => {
     try {
       setloading(true);
       const response = await axios.post(
-        "http://localhost:3000/api/User/Login",
+        // local
+        // "http://localhost:3000/api/User/Login",
+        "https://pharmapedia-me.vercel.app/api/User/Login",
         userlogin
       );
       console.log("login successfully", response.data);

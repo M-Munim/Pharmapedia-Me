@@ -331,11 +331,33 @@ const Page = ({ params }) => {
             <h2 className="uppercase font-light text-3xl sm:text-4xl md:text-5xl text-heading_blue tracking-wider">Contact Us</h2>
             <p className="text-sm md:text-xl text-t_grey mt-2 w-full lg:w-7/12 m-auto">We are ready to make your ideas and plans come to life. Please feel free to contact us and let&apos;s start working together&excl;</p>
           </div>
-
-          <div className="w-10/12 md:w-9/12 m-auto mt-16">
+        </div>
+      </section>
+      <section className="m-auto overflow-hidden relative" id='contact' >
+        <div className="w-10/12 m-auto flex flex-col-reverse md:flex-row items-center justify-center gap-20 relative py-20">
+          <div className="left w-full md:w-1/2 relative z-30">
             <Form />
           </div>
+
+          <div className="right w-full md:w-1/2 relative z-30">
+            <div className="flex flex-col gap-4">
+              <h2 className="uppercase font-light text-4xl lg:text-5xl text-heading_blue tracking-wider">Get in Touch</h2>
+
+              <p className="text-sm md:text-base lg:text-xl text-t_grey">Lorem ipsum dolor sit amet consectetur. Eu egestas libero viverra vulputate amet nunc lectus non ac. Arcu diam nullam ultrices consectetur. Gravida enim in sagittis mauris aliquam duis.</p>
+
+              <button className="button-filled">
+                Contact us
+              </button>
+            </div>
+          </div>
         </div>
+
+        <div className="w-96 h-96 border-2 rounded-full border-grey absolute -bottom-60 -right-36  z-10"></div>
+        <div className="border-2 rounded-full border-grey  absolute -bottom-60 -right-36 z-10" style={{ width: '456px', height: '456px' }}></div>
+        <div className="border-2 rounded-full border-grey opacity-65 absolute -bottom-60 -right-36 z-10" style={{ width: '526px', height: '526px' }}></div>
+        <div className="border-2 rounded-full border-grey opacity-65 absolute -bottom-60 -right-36 z-10" style={{ width: '599px', height: '599px' }}></div>
+
+        <Image src='/Ellipse 45.svg' width={116} height={116} alt="Ellipse Image" className='absolute top-1/3 right-0' />
       </section>
     </main>
   );

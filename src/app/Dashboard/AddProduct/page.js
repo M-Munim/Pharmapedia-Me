@@ -338,7 +338,9 @@ export default function AddProduct() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('/api/Product');
+      // local 
+      // const response = await axios.get('/api/Product');
+      const response = await axios.get('https://pharmapedia-me.vercel.app/api/Product');
       setProducts(response.data.result);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -347,7 +349,9 @@ export default function AddProduct() {
 
   const handleProductDetails = async (id) => {
     try {
-      const response = await axios.get(`/api/Product/${id}`);
+      // local 
+      // const response = await axios.get(`/api/Product/${id}`);
+      const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Product/${id}`);
       const product = response.data.result;
       console.log(product);
 
@@ -371,12 +375,16 @@ export default function AddProduct() {
 
     try {
       if (popupType === 'add') {
-        await axios.post('/api/Product', formData, {
+        // local
+        // await axios.post('/api/Product', formData, {
+        await axios.post('https://pharmapedia-me.vercel.app/api/Product', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         alert("Product added successfully");
       } else if (popupType === 'edit' && productId) {
-        await axios.put(`/api/Product/${productId}`, formData, {
+        // local
+        // await axios.put(`/api/Product/${productId}`, formData, {
+        await axios.put(`https://pharmapedia-me.vercel.app/api/Product/${productId}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         alert("Product updated successfully");
@@ -433,7 +441,9 @@ export default function AddProduct() {
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`/api/Product/${productId}`);
+      // LOCAL
+      // await axios.delete(`/api/Product/${productId}`);
+      await axios.delete(`https://pharmapedia-me.vercel.app/api/Product/${productId}`);
       console.log("Product deleted successfully");
       fetchProducts();
       setShowPopup(false);

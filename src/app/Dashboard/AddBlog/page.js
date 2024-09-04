@@ -445,7 +445,9 @@ const AddBlog = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Blog');
+      // local
+      // const response = await axios.get('http://localhost:3000/api/Blog');
+      const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
       setBlogs(response.data.result);
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -476,7 +478,9 @@ const AddBlog = () => {
 
   const handleConfirmDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/Blog/${id}`);
+      // local 
+      // await axios.delete(`http://localhost:3000/api/Blog/${id}`);
+      await axios.delete(`https://pharmapedia-me.vercel.app/api/Blog/${id}`);
       fetchBlogs();
     } catch (error) {
       console.error("Error deleting blog:", error);
@@ -508,7 +512,9 @@ const AddBlog = () => {
 
   const showblogDetails = async (blogid) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/Blog/${blogid}`);
+      // local 
+      // const res = await axios.get(`http://localhost:3000/api/Blog/${blogid}`);
+      const res = await axios.get(`https://pharmapedia-me.vercel.app/api/Blog/${blogid}`);
       const blogData = res.data.result;
 
       setSelectedblog({
@@ -548,9 +554,13 @@ const AddBlog = () => {
 
     try {
       if (popupType === 'add') {
-        await axios.post('http://localhost:3000/api/Blog', formData);
+        // local
+        // await axios.post('http://localhost:3000/api/Blog', formData);
+        await axios.post('https://pharmapedia-me.vercel.app/api/Blog', formData);
       } else if (popupType === 'edit') {
-        await axios.put(`http://localhost:3000/api/Blog/${id}`, formData);
+        // local
+        // await axios.put(`http://localhost:3000/api/Blog/${id}`, formData);
+        await axios.put(`https://pharmapedia-me.vercel.app/api/Blog/${id}`, formData);
       }
       fetchBlogs();
       closePopup();

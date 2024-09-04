@@ -65,7 +65,9 @@ export default function AddAdmin() {
 
 
     try {
-      const res = await axios.put(`http://localhost:3000/api/User/${first}`, formDataToSend, {
+      // local
+      // const res = await axios.put(`http://localhost:3000/api/User/${first}`, formDataToSend, {
+      const res = await axios.put(`https://pharmapedia-me.vercel.app/api/User/${first}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -98,7 +100,9 @@ export default function AddAdmin() {
     formData.append("confirmpassword", confirmPassword);
 
     try {
-      await axios.post("http://localhost:3000/api/User/Signup", formData, {
+      // local 
+      // await axios.post("http://localhost:3000/api/User/Signup", formData, {
+      await axios.post("https://pharmapedia-me.vercel.app/api/User/Signup", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -114,7 +118,9 @@ export default function AddAdmin() {
   const fetchAdmin = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/User/SpecificUser"
+        // local 
+        // "http://localhost:3000/api/User/SpecificUser"
+        "https://pharmapedia-me.vercel.app/api/User/SpecificUser"
       );
       setAdmin(response.data.result);
       console.log(response.data.result);
@@ -130,7 +136,9 @@ export default function AddAdmin() {
   // get specifice admin record
   const showAdminDetails = async (userid) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/User/${userid}`);
+      // local
+      // const res = await axios.get(`http://localhost:3000/api/User/${userid}`);
+      const res = await axios.get(`https://pharmapedia-me.vercel.app/api/User/${userid}`);
       const adminData = res.data.Result;
       console.log(adminData);
 
@@ -181,7 +189,9 @@ export default function AddAdmin() {
     // Implement delete logic here
     try {
       // alert(id)
-      await axios.delete(`http://localhost:3000/api/User/${id}`);
+      // local 
+      // await axios.delete(`http://localhost:3000/api/User/${id}`);
+      await axios.delete(`https://pharmapedia-me.vercel.app/api/User/${id}`);
       alert("Admin deleted successfully");
       fetchAdmin();
     } catch (error) {
@@ -212,7 +222,9 @@ export default function AddAdmin() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/User/verifyEmail",
+        // local
+        // "http://localhost:3000/api/User/verifyEmail",
+        "https://pharmapedia-me.vercel.app/api/User/verifyEmail",
         {
           token: inputValue,
           userId: itemId,

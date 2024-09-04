@@ -209,7 +209,9 @@ export default function AddReview() {
 
   const fetchReview = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Review');
+      // local
+      // const response = await axios.get('http://localhost:3000/api/Review');
+      const response = await axios.get('https://pharmapedia-me.vercel.app/api/Review');
       setReview(response.data.result);
       console.log(response.data.result);
     } catch (error) {
@@ -237,7 +239,10 @@ export default function AddReview() {
 
   const handleConfirmDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/Review/${id}`);
+      // local
+      // await axios.delete(`http://localhost:3000/api/Review/${id}`);
+      await axios.delete(`https://pharmapedia-me.vercel.app/api/Review/${id}`);
+
       console.log("Review deleted successfully");
       fetchReview();
     } catch (error) {
