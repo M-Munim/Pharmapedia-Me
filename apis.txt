@@ -1,0 +1,39 @@
+#localhost server
+
+
+#Blog api post and get api
+http://localhost:3000/api/Blog
+#Blog delete 
+http://localhost:3000/api/Blog/66c70587c49d6c62ffb7fe7c
+
+#Product api post and get api
+http://localhost:3000/api/Product
+#Product Delete 
+http://localhost:3000/api/Product/66cc4206ab875e5fc1543a95
+
+#Reviews api post 
+http://localhost:3000/api/Review/:BlogId
+#Reviews api get 
+http://localhost:3000/api/Review
+#REview Delete
+http://localhost:3000/api/Review/66cc214031155c5c6f6b88ee
+
+
+
+#Register user api 
+http://localhost:3000/api/User/Signup
+#Get All Users
+http://localhost:3000/api/User/SpecificUser
+#Login user
+http://localhost:3000/api/User/Login
+#Verify Email 
+http://localhost:3000/api/User/verifyEmail
+#Logout User
+http://localhost:3000/api/User/Logout
+#Get SpecificUser
+http://localhost:3000/api/User/66c8187c25391c5a8b6ece0d
+#Delete user
+http://localhost:3000/api/User/66c8187c25391c5a8b6ece0d
+
+contact api
+http://localhost:3000/api/ContactForm
