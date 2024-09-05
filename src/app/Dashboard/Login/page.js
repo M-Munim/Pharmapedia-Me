@@ -202,7 +202,7 @@ const Login = () => {
         onSubmit={handleSubmit}
       >
         <h2 className="text-3xl font-bold mb-5">
-          {loading ? "Processing..." : "Encoderbytes Dashboard"}
+          {loading ? "Processing..." : "Pharmapedia Dashboard"}
         </h2>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
