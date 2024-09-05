@@ -136,6 +136,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "../Components/urls.js";
+
 
 const Login = () => {
   const [userlogin, setuserlogin] = useState({
@@ -156,7 +158,7 @@ const Login = () => {
 
       const response = await axios.post(
         // "/api/Users/login",
-        "https://e-omega-inky.vercel.app/api/Users/login"
+        `${url}/api/User/Login`
         // Ensure this API route exists and is properly defined
       );
 
