@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { url } from "../Components/urls";
+import { url } from "../Components/urls.js";
 
 
 const Login = () => {
