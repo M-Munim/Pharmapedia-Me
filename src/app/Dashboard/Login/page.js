@@ -19,39 +19,46 @@ const Login = () => {
   // navigation
   const router = useRouter();
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setloading(true);
+  //     const response = await axios.post(
+  //       // "http://localhost:3000/api/User/Login",
+  //       `${url}/api/User/Login`,
+  //       userlogin
+  //     );
+  //     console.log("login successfully");
+  //     console.log("login successfully again");
+  //     console.log(response.data);
+  //     localStorage.setItem("token", response.data.token);
+  //     localStorage.setItem("userId", response.data.userId);
+  //     toast.success("Login successfully");
+  //     router.push("/Dashboard/Home");
+  //   } catch (error) {
+  //     toast.error("Something went wrong");
+  //   } finally {
+  //     setloading(false);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted", userlogin);  // Add this line
     try {
       setloading(true);
-      const response = await axios.post(
-        // "http://localhost:3000/api/User/Login",
-        `${url}/api/User/Login`,
-        userlogin
-      );
-      console.log("login successfully");
-      console.log("login successfully again");
-      console.log(response.data);
+      const response = await axios.post(`${url}/api/User/Login`, userlogin);
+      console.log("Login response:", response.data); // Check if this is reached
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId);
       toast.success("Login successfully");
       router.push("/Dashboard/Home");
-      // const isVerfied = response.data.isVerfied;
-      // if (isVerfied === true) {
-      //   localStorage.setItem("token", response.data.token);
-      //   localStorage.setItem("userId", response.data.userId);
-      //   toast.success("Login successfully");
-      //   router.push("/Dashboard/Home");
-      // } else {
-      //   toast.warning("You Are Not Verify For Login😢");
-      //   router.push("/Dashboard/Login");
-      // }
     } catch (error) {
+      console.error("Login error:", error);  // Log the error for better insight
       toast.error("Something went wrong");
     } finally {
       setloading(false);
     }
   };
-
   useEffect(() => {
     if (userlogin.email.length > 0 && userlogin.password.length > 0) {
       setbuttondisable(false);
