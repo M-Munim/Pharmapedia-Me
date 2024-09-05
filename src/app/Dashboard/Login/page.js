@@ -19,71 +19,41 @@ const Login = () => {
   // navigation
   const router = useRouter();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     setloading(true);
-
-  //     const response = await axios.post(
-  //       // "/api/Users/login",
-  //       `${url}/api/User/Login`
-  //       // Ensure this API route exists and is properly defined
-  //     );
-
-  //     console.log("Login successful", response.data);
-
-  //     localStorage.setItem("token", response.data.token);
-  //     localStorage.setItem("userId", response.data.userId);
-
-  //     toast.success("Login successfully");
-
-  //     // Use a relative path for navigation
-  //     router.push(`Dashboard/Home`);
-
-  //     // If using verification, uncomment the following code
-  //     // const isVerified = response.data.isVerified;
-  //     // if (isVerified) {
-  //     //   router.push("/AdminDashboard/Home");
-  //     // } else {
-  //     //   toast.warning("You are not verified for login😢");
-  //     //   router.push("/AdminDashboard/Login");
-  //     // }
-  //   } catch (error) {
-  //     toast.error("Something went wrong");
-  //   } finally {
-  //     setloading(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setloading(true);
 
-      // Sending user credentials in the request body
       const response = await axios.post(
-        `${url}/api/User/Login`,
-        userlogin // This should include email and password
+        // "/api/Users/login",
+        `${url}/api/User/Login`
+        // Ensure this API route exists and is properly defined
       );
 
-      if (response.data.error) {
-        toast.error(response.data.error);  // Handle API error message
-      } else {
-        console.log("Login successful", response.data);
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.userId);
-        toast.success("Login successfully");
-        router.push(`Dashboard/Home`);
-      }
+      console.log("Login successful", response.data);
 
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
+
+      toast.success("Login successfully");
+
+      // Use a relative path for navigation
+      router.push(`Dashboard/Home`);
+
+      // If using verification, uncomment the following code
+      // const isVerified = response.data.isVerified;
+      // if (isVerified) {
+      //   router.push("/AdminDashboard/Home");
+      // } else {
+      //   toast.warning("You are not verified for login😢");
+      //   router.push("/AdminDashboard/Login");
+      // }
     } catch (error) {
-      console.error("Login failed", error);
       toast.error("Something went wrong");
     } finally {
       setloading(false);
     }
   };
-
 
   useEffect(() => {
     if (userlogin.email.length > 0 && userlogin.password.length > 0) {
