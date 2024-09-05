@@ -170,7 +170,7 @@ const Login = () => {
       toast.success("Login successfully");
 
       // Use a relative path for navigation
-      router.push("/Dashboard/Home");
+      router.push(`${url}/Dashboard/Home`);
 
       // If using verification, uncomment the following code
       // const isVerified = response.data.isVerified;
