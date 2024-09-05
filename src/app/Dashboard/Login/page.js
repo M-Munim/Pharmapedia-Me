@@ -162,7 +162,7 @@ const Login = () => {
         // Ensure this API route exists and is properly defined
       );
 
-      console.log("Login successful", response.data);
+      console.log("Login successful", response);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId);
@@ -170,7 +170,7 @@ const Login = () => {
       toast.success("Login successfully");
 
       // Use a relative path for navigation
-      router.push("/Dashboard/Home");
+      // router.push("/Dashboard/Home");
 
       // If using verification, uncomment the following code
       // const isVerified = response.data.isVerified;
@@ -241,7 +241,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+          className="w-full bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
           disabled={buttonDisable || loading}
         >
           {loading ? "Logging in..." : "Login"}
