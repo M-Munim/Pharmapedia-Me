@@ -46,7 +46,9 @@ const Login = () => {
     console.log("Form submitted", userlogin);  // Add this line
     try {
       setloading(true);
-      const response = await axios.post(`${url}/api/User/Login`, userlogin);
+      const response = await axios.post(`${url}/api/User/Login`, userlogin, {
+        timeout: 10000, // 10 seconds
+      });
       console.log("Login response:", response.data); // Check if this is reached
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId);
