@@ -24,11 +24,15 @@ const Login = () => {
     try {
       setloading(true);
 
-      const response = await axios.post(
-        // "/api/Users/login",
-        `${url}/api/User/Login`
-        // Ensure this API route exists and is properly defined
-      );
+      // const response = await axios.post(
+      //   // "/api/Users/login",
+      //   `${url}/api/User/Login`
+      //   // Ensure this API route exists and is properly defined
+      // );
+
+      const response = await axios.post(`${url}/api/User/Login`, userlogin);
+      console.log("API response:", response.data);
+
 
       console.log("Login successful", response.data);
 
