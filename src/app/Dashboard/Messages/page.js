@@ -32,7 +32,7 @@ const Page = () => {
   const handleConfirmDelete = async (id) => {
     // Implement delete logic here
     try {
-      await axios.delete(`http://localhost:3000/api/ContactForm/${id}`);
+      await axios.delete(`/api/ContactForm/${id}`);
       alert("Message deleted successfully");
       fetchMessage();
     } catch (error) {
