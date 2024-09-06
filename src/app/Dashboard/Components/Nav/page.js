@@ -18,22 +18,27 @@ const Nav = () => {
       // Clear local storage
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
+      const tokenget = localStorage.getItem('token')
 
-      // Optionally clear cookies if used
-      document.cookie.split(";").forEach((c) => {
-        document.cookie = c
-          .replace(/^ +/, "")
-          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-      });
+      if (!tokenget) {
+        // Optionally clear cookies if used
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
 
-      // Redirect to login page
+        // Redirect to login page
 
 
-      // Show success message
-      toast.success("Logged out successfully!!!");
-      // local
-      // router.push("/Dashboard/Login");
-      router.push("/Dashboard/Login");
+        // Show success message
+        toast.success("Logged out successfully!!!");
+        // local
+        // router.push("/Dashboard/Login");
+        router.push("/Dashboard/Login");
+      }
+
+
 
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
