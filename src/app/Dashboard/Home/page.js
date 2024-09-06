@@ -77,13 +77,13 @@ const reviewsData = {
 };
 
 export default function Home() {
-  const router = useRouter();
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/Dashboard/Login");
-      return;
-    }
-  }, []);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     router.push("/Dashboard/Login");
+  //     return;
+  //   }
+  // }, []);
   return (
     <HomeLayout>
       <div className="p-3">

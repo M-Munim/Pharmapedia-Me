@@ -1,33 +1,36 @@
-// // import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-// // export function middleware(request) {
-// //   const url = request.nextUrl.pathname;
-// //   const token = request.cookies.get('token') || null;
+export function middleware(request) {
+  const url = request.nextUrl.pathname;
+  const token = request.cookies.get('token') || null;
 
-// //   // Allow access to login page if logged out
-// //   if (url === '/Dashboard/Login' && !token) {
-// //     return NextResponse.next();
-// //   }
+  console.log(token, url);
 
-// //   // Redirect logged-in users away from login page
-// //   if (url === '/Dashboard/Login' && token) {
-// //     return NextResponse.redirect(new URL('/Dashboard/Home', request.url));
-// //   }
 
-// //   // Redirect unauthenticated users away from authenticated routes
-// //   if (url.startsWith('/Dashboard') && !token) {
-// //     return NextResponse.redirect(new URL('/Dashboard/Login', request.url));
-// //   }
+  // Allow access to login page if logged out
+  if (url === '/Dashboard/Login' && !token) {
+    return NextResponse.next();
+  }
 
-// //   // Allow the request to continue
-// //   return NextResponse.next();
-// // }
+  // Redirect logged-in users away from login page
+  if (url === '/Dashboard/Login' && token) {
+    return NextResponse.redirect(new URL('/Dashboard/Home', request.url));
+  }
 
-// // export const config = {
-// //   matcher: [
-// //     '/Dashboard/:path*',
-// //   ],
-// // };
+  // Redirect unauthenticated users away from authenticated routes
+  if (url.startsWith('/Dashboard') && !token) {
+    return NextResponse.redirect(new URL('/Dashboard/Login', request.url));
+  }
+
+  // Allow the request to continue
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    '/Dashboard/:path*',
+  ],
+};
 
 
 // import { useEffect } from 'react';
@@ -62,7 +65,7 @@
 // export default useTokenRedirect;
 
 
-export const isAuthenticated = () => {
-  const isVerfied = localStorage.getItem("token");
-  return isVerfied !== null;
-};
+// export const isAuthenticated = () => {
+//   const isVerfied = localStorage.getItem("token");
+//   return isVerfied !== null;
+// };
