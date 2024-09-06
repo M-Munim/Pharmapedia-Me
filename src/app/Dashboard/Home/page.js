@@ -3,7 +3,8 @@
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import HomeLayout from '../Components/HomeLayout';
-import useTokenRedirect from '@/middleware.js';
+import { isAuthenticated } from '@/middleware';
+
 
 
 // Register the required components
@@ -74,7 +75,12 @@ const reviewsData = {
 };
 
 export default function Home() {
-  useTokenRedirect();
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push("/AdminDashboard/Login");
+      return;
+    }
+  }, []);
   return (
     <HomeLayout>
       <div className="p-3">
