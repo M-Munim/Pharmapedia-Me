@@ -245,6 +245,14 @@ const { default: ProductModel } = require("@/app/models/ProductModel"); // Impor
 const { NextResponse } = require("next/server"); // Import NextResponse for sending responses
 import { unlink, writeFile } from "fs/promises"; // Import unlink and writeFile functions from fs/promises
 import path from "path"; // Import the path module for handling file paths
+import cloudinary from 'cloudinary'; // Import Cloudinary
+
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Configure the API to disable the default body parser
 export const dynamic = "force-dynamic"; // or other new configuration options if applicable
@@ -340,17 +348,7 @@ export async function PUT(request, { params }) {
 
     // Parse the incoming form data
     const data = await request.formData();
-    const file1 = data.get("displayImage");
-    let filename1 = null;
-    let buffer = null;
-
-    if (file1 && typeof file1 === "object") {
-      filename1 = file1.name;
-      const byteData = await file1.arrayBuffer();
-      buffer = Buffer.from(byteData);
-      const filePath = `./public/uploads/${filename1}`;
-      await writeFile(filePath, buffer);
-    }
+    const file1 = data.get('displayImage');
 
     // Create an object to store the form data
     const formDataObject = {};
@@ -375,9 +373,25 @@ export async function PUT(request, { params }) {
     product.productName = productName || product.productName;
     product.productContent = productContent || product.productContent;
 
-    // Update the images if new files are provided
-    if (filename1) {
-      product.displayImage = filename1;
+    // Upload the new image to Cloudinary if a new file is provided
+    if (file1 && typeof file1 === 'object') {
+      const byteData = await file1.arrayBuffer();
+      const buffer = Buffer.from(byteData);
+
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload_stream({
+          resource_type: "image",
+          folder: "products", // Optional: folder in Cloudinary where images will be saved
+        }, (error, result) => {
+          if (error) {
+            reject(new Error("Error uploading image: " + error.message));
+          } else {
+            resolve(result);
+          }
+        }).end(buffer);
+      });
+
+      product.displayImage = uploadResponse.secure_url; // Update with Cloudinary URL
     }
 
     // Save the updated product to the database
@@ -392,6 +406,6 @@ export async function PUT(request, { params }) {
   } catch (error) {
     console.error("Error updating product:", error);
     // Return an error response
-    return NextResponse.json({ error: "Failed to update product", status: 500 });
+    return NextResponse.json({ error: error.message, status: 500 });
   }
 }

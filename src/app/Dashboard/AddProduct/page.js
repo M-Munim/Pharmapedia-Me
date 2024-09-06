@@ -488,8 +488,8 @@ export default function AddProduct() {
                   <td className="py-3 px-4 border-b border-gray-200">{i + 1}</td>
                   <td className="py-3 px-4 border-b border-gray-200">{item.productName}</td>
                   <td className="py-3 px-4 border-b border-gray-200">
-                    <Image
-                      src={`/uploads/${item.displayImage}`}
+                    <img
+                      src={item.displayImage}
                       alt="Product Image"
                       width={100}
                       height={100}
@@ -552,7 +552,7 @@ export default function AddProduct() {
                   />
                   {imagePreview && (
                     <div className="w-32 h-32">
-                      <Image src={imagePreview} alt="Product Image Preview" width={128} height={128} />
+                      <img src={imagePreview} alt="Product Image Preview" width={128} height={128} />
                     </div>
                   )}
                   <div className="flex justify-end space-x-4">
