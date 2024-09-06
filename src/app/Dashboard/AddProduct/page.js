@@ -552,7 +552,11 @@ export default function AddProduct() {
                   />
                   {imagePreview && (
                     <div className="w-32 h-32">
-                      <img src={imagePreview} alt="Product Image Preview" width={128} height={128} />
+                      <img
+                        src={imagePreview}
+                        alt="Product Image"
+                        className='w-28'
+                      />
                     </div>
                   )}
                   <div className="flex justify-end space-x-4">
