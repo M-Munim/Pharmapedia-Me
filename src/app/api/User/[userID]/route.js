@@ -155,11 +155,11 @@ export async function GET(request, context) {
 
 
 // put
-import bcrypt from 'bcrypt';
-import User from '@/app/models/UserModel.js';
-import { connect } from '@/app/api/config/db';
-import { NextResponse } from 'next/server';
-import cloudinary from 'cloudinary';
+// import bcrypt from 'bcrypt';
+// import User from '@/app/models/UserModel.js';
+// import { connect } from '@/app/api/config/db';
+// import { NextResponse } from 'next/server';
+// import cloudinary from 'cloudinary';
 
 // Configure Cloudinary
 cloudinary.v2.config({
