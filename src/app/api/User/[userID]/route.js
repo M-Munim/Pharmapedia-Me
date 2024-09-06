@@ -4,6 +4,8 @@ const { NextResponse } = require("next/server");
 import { writeFile, unlink } from "fs/promises";
 import bcrypt from "bcrypt";
 import path from "path";
+import cloudinary from 'cloudinary';
+
 
 // export const config = {
 //   api: {
@@ -159,7 +161,6 @@ export async function GET(request, context) {
 // import User from '@/app/models/UserModel.js';
 // import { connect } from '@/app/api/config/db';
 // import { NextResponse } from 'next/server';
-// import cloudinary from 'cloudinary';
 
 // Configure Cloudinary
 cloudinary.v2.config({
