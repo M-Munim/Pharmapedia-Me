@@ -87,16 +87,20 @@ export default function Home() {
   // }, []);
 
   // Check if the token is successfully removed
-  if (!localStorage.getItem('token')) {
-    // Show success message
-    toast.success("Logged out successfully!!!");
+  useEffect(() => {
+    // Ensure this code runs on the client side only
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        // Show success message if token is missing
+        toast.success("Logged out successfully!!!");
+        console.log("No token found. Redirecting to login.");
 
-    console.log("empty empty ");
-
-
-    // Redirect to login page
-    // router.push("/Dashboard/Login");
-  }
+        // Redirect to login page (you may need to use a router here if necessary)
+        // router.push("/AdminDashboard/Login");
+      }
+    }
+  }, []);
   return (
     <HomeLayout>
       <div className="p-3">
