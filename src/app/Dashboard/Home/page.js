@@ -5,6 +5,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import HomeLayout from '../Components/HomeLayout';
 import { isAuthenticated } from '@/middleware';
 import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+
 
 
 // Register the required components
