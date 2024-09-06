@@ -24,7 +24,7 @@ const Nav = () => {
         toast.success("Logged out successfully!!!");
 
         // Redirect to login page
-        router.push("/Dashboard/Login");
+        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
       }
 
     } catch (error) {
