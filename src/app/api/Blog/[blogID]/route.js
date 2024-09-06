@@ -133,3 +133,54 @@ export async function GET(request, { params }) {
     return NextResponse.json({ message: "Internal Server Error", status: 500 });
   }
 }
+
+
+
+// delete
+export async function DELETE(request, { params }) {
+  try {
+    // Extract the product ID from the request parameters
+    const id = params.blogID;
+    console.log(id);
+
+    // Connect to the database
+    await connect();
+
+    // Find the product by ID
+    const Find_Pro = await BlogModel.findById(id);
+
+    // Check if the product exists
+    if (!Find_Pro) {
+      return NextResponse.json({ message: "Product not found", status: 404 });
+    }
+
+    // Get the public ID for the image associated with the product
+    const publicId = Find_Pro.displayImage; // Assumes displayImage contains the public ID
+
+    // Delete the image from Cloudinary
+    try {
+      await cloudinary.uploader.destroy(publicId);
+      console.log(`Deleted image from Cloudinary: ${publicId}`);
+    } catch (error) {
+      console.error(`Failed to delete image from Cloudinary: ${publicId}`, error);
+    }
+
+    // Delete the product from the database
+    const _deletedpro = await BlogModel.findByIdAndDelete(id);
+
+    // Check if the product was found and deleted
+    if (!_deletedpro) {
+      return NextResponse.json({ message: "blog not found", status: 404 });
+    }
+
+    // Return a success response
+    return NextResponse.json({
+      message: "blog deleted successfully",
+      status: 200,
+    });
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    // Return an error response
+    return NextResponse.json({ error: "Failed to delete blog", status: 500 });
+  }
+}
