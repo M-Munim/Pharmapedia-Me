@@ -37,7 +37,8 @@ const Login = () => {
 
 
       // If using verification, uncomment the following code
-      const isVerified = response.data.isVerified;
+      // const isVerified = response.data.isVerified;
+      const isVerified = response.data.token
       if (isVerified) {
         toast.success("Login successfully");
         router.push("/Dashboard/Home");
