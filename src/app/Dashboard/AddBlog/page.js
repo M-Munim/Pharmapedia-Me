@@ -601,7 +601,7 @@ const AddBlog = () => {
                   <img
                     src={item.authorImage}
                     alt='Blog image'
-                  // className='bg-red-300'
+                    className='w-20 h-20'
                   />
                 </td>
                 <td className="py-3 px-4 border-b border-gray-200">{item.title}</td>
@@ -609,13 +609,13 @@ const AddBlog = () => {
                   <img
                     src={item.displayImage}
                     alt='Blog image'
-                  // className='bg-red-300'
+                    className='w-20 h-20'
                   />
                 </td>
                 <td className="py-3 px-4 border-b border-gray-200">{item.datetime}</td>
                 <td className="py-3 px-4 border-b border-gray-200">
                   <button
-                    className="text-white bg-orange-500"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded-lg shadow-md"
                     onClick={() => handleEditClick(item._id)}
                   >
                     Edit
@@ -623,7 +623,7 @@ const AddBlog = () => {
                 </td>
                 <td className="py-3 px-4 border-b border-gray-200">
                   <button
-                    className="text-white bg-red-600"
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded-lg shadow-md"
                     onClick={() => handleDeleteClick(item._id)}
                   >
                     Delete

@@ -105,3 +105,31 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: "Failed to update blog", status: 500 });
   }
 }
+
+
+// GET handler for retrieving a specific product by ID
+export async function GET(request, { params }) {
+  try {
+    // Connect to the database
+    await connect();
+
+    // Extract the product ID from the request parameters
+    const id = params.blogID;
+    console.log(id);
+
+    // Find the product by ID
+    const Find_pro = await BlogModel.findById(id);
+
+    // Check if the product exists
+    if (!Find_pro) {
+      return NextResponse.json({ result: "No Blog Available", status: 404 });
+    } else {
+      // Return the found product as a JSON response
+      return NextResponse.json({ result: Find_pro, status: 200 });
+    }
+  } catch (error) {
+    console.error("Error retrieving product:", error);
+    // Return an error response
+    return NextResponse.json({ message: "Internal Server Error", status: 500 });
+  }
+}
