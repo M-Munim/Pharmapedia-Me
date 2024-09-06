@@ -33,7 +33,6 @@ const Nav = () => {
       toast.success("Logged out successfully!!!");
       // local
       // router.push("/Dashboard/Login");
-      // okk
       router.push("/Dashboard/Login");
 
     } catch (error) {
