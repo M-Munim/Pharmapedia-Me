@@ -170,16 +170,16 @@ const Login = () => {
       toast.success("Login successfully");
 
       // Use a relative path for navigation
-      // router.push("/Dashboard/Home");
+      router.push("/Dashboard/Home");
 
       // If using verification, uncomment the following code
-      // const isVerified = response.data.isVerified;
-      // if (isVerified) {
-      //   router.push("/AdminDashboard/Home");
-      // } else {
-      //   toast.warning("You are not verified for login😢");
-      //   router.push("/AdminDashboard/Login");
-      // }
+      const isVerified = response.data.isVerified;
+      if (isVerified) {
+        router.push("/AdminDashboard/Home");
+      } else {
+        toast.warning("You are not verified for login😢");
+        router.push("/AdminDashboard/Login");
+      }
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
