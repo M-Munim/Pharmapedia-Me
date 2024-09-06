@@ -17,9 +17,11 @@ const Nav = () => {
 
       // Clear local storage
       localStorage.removeItem("userId");
-      localStorage.removeItem("token");
+      const cookie = localStorage.removeItem("token");
       localStorage.removeItem("email");
-      const cookie = Cookies.remove('token');
+      const copokie = Cookies.remove('token');
+      console.log(copokie);
+
 
       // Check if the token is successfully removed
       if (!cookie) {
