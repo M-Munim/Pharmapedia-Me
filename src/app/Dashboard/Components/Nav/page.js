@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "axios"; // Ensure axios is imported
 import { useCallback } from 'react';
+import Cookies from 'js-cookie';
 
 const Nav = () => {
   const router = useRouter();
@@ -18,9 +19,10 @@ const Nav = () => {
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
       localStorage.removeItem("email");
+      const cookie = Cookies.remove('token');
 
       // Check if the token is successfully removed
-      if (!localStorage.getItem('token')) {
+      if (!cookie) {
         // Show success message
         toast.success("Logged out successfully!!!");
 
