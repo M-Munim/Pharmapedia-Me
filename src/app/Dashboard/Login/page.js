@@ -158,24 +158,26 @@ const Login = () => {
 
       const response = await axios.post(
         // "/api/Users/login",
-        `${url}/api/User/Login`
+        `/api/User/Login`, {
+        email: userlogin.email,
+        password: userlogin.password
+      }
         // Ensure this API route exists and is properly defined
       );
 
       console.log("Login successful", response);
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.userId);
 
-      toast.success("Login successfully");
 
-      // Use a relative path for navigation
-      router.push("/Dashboard/Home");
+
 
       // If using verification, uncomment the following code
       const isVerified = response.data.isVerified;
       if (isVerified) {
+        toast.success("Login successfully");
         router.push("/Dashboard/Home");
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userId);
       } else {
         toast.warning("You are not verified for login😢");
         router.push("/Dashboard/Login");
