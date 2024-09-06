@@ -20,7 +20,8 @@ const Nav = () => {
       const cookie = localStorage.removeItem("token");
       localStorage.removeItem("email");
       const copokie = Cookies.remove('token');
-      deleteCookie('token');
+      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      // deleteCookie('token');
       console.log(copokie);
 
 
