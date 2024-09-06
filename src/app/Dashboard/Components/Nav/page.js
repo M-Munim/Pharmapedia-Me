@@ -13,7 +13,7 @@ const Nav = () => {
       // Call the API to log out the user server-side
       // local
       // await axios.get("http://localhost:3000/api/User/Logout");
-      await axios.get("https://pharmapedia-me.vercel.app/api/User/Logout");
+      await axios.get("/api/User/Logout");
 
       // Clear local storage
       localStorage.removeItem("userId");
