@@ -1,24 +1,9 @@
 import bcrypt from 'bcrypt';
-import User from '@/app/models/UserModel';
+import User from '@/app/models/UserModel.js';
 import { connect } from '@/app/api/config/db';
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/app/helper/mailer';
-import { writeFile } from 'fs/promises';
-
-import cloudinary from "cloudinary";
-// Configuration to disable body parsing by Next.js for this API route
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
-
-// The main function to handle POST request
-
-
-
-
-
+import cloudinary from 'cloudinary';
 
 // Configure Cloudinary
 cloudinary.v2.config({
@@ -42,29 +27,40 @@ export async function POST(Request) {
 
       // Upload to Cloudinary
       const uploadResponse = await new Promise((resolve, reject) => {
-        cloudinary.v2.uploader
-          .upload_stream({ resource_type: "auto" }, (error, result) => {
-            if (error) reject(error);
-            else resolve(result);
-          })
-          .end(buffer);
+        cloudinary.v2.uploader.upload_stream(
+          { resource_type: "auto" },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        ).end(buffer);
       });
 
       imageUrl = uploadResponse.secure_url;
       console.log(`Uploaded image URL: ${imageUrl}`);
     } else {
       // Use a default image if no file is uploaded
-      imageUrl =
-        "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg"; // Replace with your default image URL
+      imageUrl = "https://res.cloudinary.com/dpj2ewekx/image/upload/v1725603041/samples/smile.jpg"; // Replace with your default image URL
     }
 
     const formDataObject = {};
     for (const [key, value] of data.entries()) {
       formDataObject[key] = value;
     }
+
     const { username, email, password, confirmpassword, designation, phone } = formDataObject;
 
     console.log(username, email, password, confirmpassword, designation, phone);
+
+    if (password !== confirmpassword) {
+      return NextResponse.json({
+        error: "Passwords do not match",
+        status: 400,
+      });
+    }
 
     const existingUser = await User.findOne({ email });
 
@@ -78,20 +74,19 @@ export async function POST(Request) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const Post_Message = new User({
+    const newUser = new User({
       username,
       email,
       password: hashedPassword,
       Image: imageUrl, // Use the uploaded or default image
       designation,
-      confirmpassword,
       phone,
     });
 
-    const Save_User = await Post_Message.save();
-    console.log(Save_User);
+    const savedUser = await newUser.save();
+    console.log(savedUser);
 
-    await sendEmail({ email, emailType: "VERIFY", userId: Save_User._id });
+    await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
     return NextResponse.json({
       message: "User created successfully",
@@ -100,6 +95,9 @@ export async function POST(Request) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: error.message, status: 500 });
+    return NextResponse.json({
+      error: error.message || 'An error occurred',
+      status: 500,
+    });
   }
 }
