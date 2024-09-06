@@ -4,7 +4,7 @@ import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import HomeLayout from '../Components/HomeLayout';
 import { isAuthenticated } from '@/middleware';
-
+import { useRouter } from "next/navigation";
 
 
 // Register the required components
@@ -75,9 +75,10 @@ const reviewsData = {
 };
 
 export default function Home() {
+  const router = useRouter();
   useEffect(() => {
     if (!isAuthenticated()) {
-      router.push("/AdminDashboard/Login");
+      router.push("/Dashboard/Login");
       return;
     }
   }, []);
