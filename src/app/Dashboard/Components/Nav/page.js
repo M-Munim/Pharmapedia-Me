@@ -11,14 +11,14 @@ const Nav = () => {
   const Logout = async () => {
     try {
       // Call the API to log out the user server-side
-      // local
-      // await axios.get("http://localhost:3000/api/User/Logout");
       await axios.get("/api/User/Logout");
 
       // Clear local storage
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
-      const tokenget = localStorage.getItem('token')
+
+      // Get the token after removal (should be null)
+      const tokenget = localStorage.getItem('token');
 
       if (!tokenget) {
         // Optionally clear cookies if used
@@ -28,23 +28,19 @@ const Nav = () => {
             .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
 
-        // Redirect to login page
-
-
         // Show success message
         toast.success("Logged out successfully!!!");
-        // local
-        // router.push("/Dashboard/Login");
-        router.push("/Dashboard/Login");
       }
 
-
+      // Redirect to login page
+      await router.push("/Dashboard/Login");
 
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
       toast.error("Failed to log out. Please try again.");
     }
   };
+
 
   return (
     <nav className="flex items-center justify-between bg-hover_blue h-16 pr-5">
