@@ -85,8 +85,8 @@ const Blog = () => {
             {blogs.map((blogData) => (
 
               <div className="relative my-5 w-[360px] md:w-[325px] lg:w-[395px] xl:w-[400px]" key={blogData.id}>
-                <Image
-                  src={`/uploads/${blogData.displayImage}`}
+                <img
+                  src={blogData.displayImage}
                   alt='main img'
                   width={468}
                   height={358}
@@ -110,11 +110,11 @@ const Blog = () => {
 
                   <div className="w-11/12">
                     <div className="flex items-center justify-between">
-                      <Image
-                        src={`/uploads/${blogData.authorImage}`}
+                      <img
+                        src={blogData.authorImage}
                         alt="author Img"
-                        width={100}
-                        height={100}
+                        // width={100}
+                        // height={100}
                         className='w-8 md:w-8'
                       />
                       <p className="text-xs md:text-base font-bold">{blogData.author}</p>
@@ -217,7 +217,10 @@ const Blog = () => {
                   blogs.map((blogData) => (
                     <div className="my-2 md:my-6 flex gap-2 md:gap-6" key={blogData._id}>
                       <div className="">
-                        <Image src={`/uploads/${blogData.displayImage}`} width={122} height={77} alt='staticBlogImg' />
+                        <img src={blogData.displayImage}
+                          // width={122}
+                          //  height={77}
+                          alt='staticBlogImg' />
                       </div>
                       <div className="flex flex-col items-start justify-between">
                         <p className='mb-0 font-semibold text-xs md:text-base leading-4 md:leading-5 '>{blogData.title}</p>
@@ -236,7 +239,11 @@ const Blog = () => {
                   blogs.map((blogData) => (
                     <div className="my-5 flex gap-6" key={blogData._id}>
                       <div className="">
-                        <Image src={`/uploads/${blogData.displayImage}`} width={210} height={93} alt='staticBlogImg' />
+                        <img
+                          src={blogData.displayImage}
+                          // width={210}
+                          // height={93}
+                          alt='staticBlogImg' />
                       </div>
                       <div className="flex flex-col items-start justify-between">
                         <p className='mb-0 font-semibold leading-5'>{blogData.title}</p>
