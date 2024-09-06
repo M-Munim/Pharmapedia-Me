@@ -19,6 +19,8 @@ const Nav = () => {
 
       // Get the token after removal (should be null)
       const tokenget = localStorage.getItem('token');
+      console.log(tokenget);
+
 
       if (!tokenget) {
         // Optionally clear cookies if used
