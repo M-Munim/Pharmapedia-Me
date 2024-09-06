@@ -1,16 +1,10 @@
-
-// const { connect } = require("@/app/api/config/db");
-// const { default: BlogModel } = require("@/app/models/BlogModel");
-// const { writeFile } = require("fs/promises");
-// const { NextResponse } = require("next/server");
-
-const { connect } = require("@/app/api/config/db");
-const { default: BlogModel } = require("@/app/models/BlogModel");
-const { NextResponse } = require("next/server");
-const cloudinary = require('cloudinary').v2;
+import { connect } from '@/app/api/config/db';
+import BlogModel from '@/app/models/BlogModel';
+import { NextResponse } from 'next/server';
+import cloudinary from 'cloudinary';
 
 // Configure Cloudinary
-cloudinary.config({
+cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
@@ -25,33 +19,45 @@ export async function POST(request) {
     const file1 = data.get("displayImage");
     const file2 = data.get("authorImage");
 
-    // Convert file data to buffer
-    const buffer1 = Buffer.from(await file1.arrayBuffer());
-    const buffer2 = Buffer.from(await file2.arrayBuffer());
+    let displayImage = "";
+    let authorImage = "";
 
     // Upload files to Cloudinary
-    const uploadResponse1 = await cloudinary.uploader.upload_stream({
-      resource_type: "image",
-      folder: "blogs", // Folder in Cloudinary where images will be saved
-    }, (error, result) => {
-      if (error) {
-        throw new Error("Error uploading displayImage: " + error.message);
-      }
-      return result;
-    }).end(buffer1);
+    if (file1) {
+      const buffer1 = Buffer.from(await file1.arrayBuffer());
+      const uploadResponse1 = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload_stream({
+          resource_type: "image",
+          folder: "blogs", // Folder in Cloudinary where images will be saved
+        }, (error, result) => {
+          if (error) {
+            reject(new Error("Error uploading displayImage: " + error.message));
+          } else {
+            resolve(result);
+          }
+        }).end(buffer1);
+      });
 
-    const uploadResponse2 = await cloudinary.uploader.upload_stream({
-      resource_type: "image",
-      folder: "authors", // Folder in Cloudinary where images will be saved
-    }, (error, result) => {
-      if (error) {
-        throw new Error("Error uploading authorImage: " + error.message);
-      }
-      return result;
-    }).end(buffer2);
+      displayImage = uploadResponse1.secure_url; // Cloudinary URL for display image
+    }
 
-    const displayImage = uploadResponse1.secure_url; // Cloudinary URL for display image
-    const authorImage = uploadResponse2.secure_url; // Cloudinary URL for author image
+    if (file2) {
+      const buffer2 = Buffer.from(await file2.arrayBuffer());
+      const uploadResponse2 = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload_stream({
+          resource_type: "image",
+          folder: "authors", // Folder in Cloudinary where images will be saved
+        }, (error, result) => {
+          if (error) {
+            reject(new Error("Error uploading authorImage: " + error.message));
+          } else {
+            resolve(result);
+          }
+        }).end(buffer2);
+      });
+
+      authorImage = uploadResponse2.secure_url; // Cloudinary URL for author image
+    }
 
     // Constructing formDataObject excluding the files
     const formDataObject = {};
@@ -98,26 +104,17 @@ export async function POST(request) {
   }
 }
 
-
 export async function GET() {
   try {
     await connect();
     const allBlogs = await BlogModel.find();
     const blogCount = await BlogModel.countDocuments();
 
-    if (!allBlogs || allBlogs.length === 0) {
-      return NextResponse.json({
-        result: allBlogs,
-        count: 0,
-        status: 200,
-      });
-    } else {
-      return NextResponse.json({
-        result: allBlogs,
-        count: blogCount,
-        status: 200,
-      });
-    }
+    return NextResponse.json({
+      result: allBlogs,
+      count: blogCount,
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: "Internal Server Error", status: 500 });
