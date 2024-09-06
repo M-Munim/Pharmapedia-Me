@@ -663,31 +663,33 @@ const AddBlog = () => {
               <>
                 <h2 className="text-2xl font-bold mb-4">{popupType === 'add' ? 'Add Blog' : 'Edit Blog'}</h2>
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
-                      Blog Title
-                    </label>
-                    <input
-                      type="text"
-                      id="title"
-                      value={blogTitle}
-                      onChange={(e) => setBlogTitle(e.target.value)}
-                      className="border rounded-lg p-2 w-full"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="author">
-                      Author
-                    </label>
-                    <input
-                      type="text"
-                      id="author"
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
-                      className="border rounded-lg p-2 w-full"
-                      required
-                    />
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="mb-4">
+                      <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
+                        Blog Title
+                      </label>
+                      <input
+                        type="text"
+                        id="title"
+                        value={blogTitle}
+                        onChange={(e) => setBlogTitle(e.target.value)}
+                        className="border rounded-lg p-2 w-full"
+                        required
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="block text-gray-700 font-bold mb-2" htmlFor="author">
+                        Author
+                      </label>
+                      <input
+                        type="text"
+                        id="author"
+                        value={author}
+                        onChange={(e) => setAuthor(e.target.value)}
+                        className="border rounded-lg p-2 w-full"
+                        required
+                      />
+                    </div>
                   </div>
                   <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="date">
