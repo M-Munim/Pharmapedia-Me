@@ -20,6 +20,7 @@ const Nav = () => {
       const cookie = localStorage.removeItem("token");
       localStorage.removeItem("email");
       const copokie = Cookies.remove('token');
+      deleteCookie('token');
       console.log(copokie);
 
 
