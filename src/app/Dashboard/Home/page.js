@@ -3,6 +3,7 @@
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import HomeLayout from '../Components/HomeLayout';
+import { toast } from "react-toastify";
 // import { isAuthenticated } from '@/middleware';
 // import { useRouter } from "next/navigation";
 // import { useEffect } from 'react';
@@ -84,6 +85,18 @@ export default function Home() {
   //     return;
   //   }
   // }, []);
+
+  // Check if the token is successfully removed
+  if (!localStorage.getItem('token')) {
+    // Show success message
+    toast.success("Logged out successfully!!!");
+
+    console.log("empty empty ");
+
+
+    // Redirect to login page
+    // router.push("/Dashboard/Login");
+  }
   return (
     <HomeLayout>
       <div className="p-3">

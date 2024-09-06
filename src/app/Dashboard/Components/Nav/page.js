@@ -17,6 +17,7 @@ const Nav = () => {
       // Clear local storage
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
+      localStorage.removeItem("email");
 
       // Check if the token is successfully removed
       if (!localStorage.getItem('token')) {
