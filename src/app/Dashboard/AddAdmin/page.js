@@ -301,8 +301,8 @@ export default function AddAdmin() {
                   </td>
                   <td className="py-3 px-4 border-b border-gray-200">
                     <Image
-                      src={`/uploads/${item.Image}`}
-                      alt="shareIcon-Img"
+                      src={item.Image}
+                      alt={item.username}
                       width={100}
                       height={100}
                       className="w-10"

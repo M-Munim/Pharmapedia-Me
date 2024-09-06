@@ -17,31 +17,23 @@ const Nav = () => {
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
 
-      // Get the token after removal (should be null)
-      const tokenget = localStorage.getItem('token');
-      console.log(tokenget);
-
-
-      if (tokenget === null) {
-        // Optionally clear cookies if used
-        document.cookie.split(";").forEach((c) => {
-          document.cookie = c
-            .replace(/^ +/, "")
-            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        });
+      // Check if the token is successfully removed
+      if (!localStorage.getItem('token')) {
+        // Clear all cookies (if any are set)
 
         // Show success message
         toast.success("Logged out successfully!!!");
+        router.push("/Dashboard/Login");
       }
 
       // Redirect to login page
-      await router.push("/Dashboard/Login");
 
     } catch (error) {
-      console.error(`Error logging out: ${error.message}`);
+      console.error(`Error during logout: ${error.message}`);
       toast.error("Failed to log out. Please try again.");
     }
   };
+
 
 
   return (
