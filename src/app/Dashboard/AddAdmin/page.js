@@ -300,11 +300,9 @@ export default function AddAdmin() {
                     {item.designation}
                   </td>
                   <td className="py-3 px-4 border-b border-gray-200">
-                    <Image
+                    <img
                       src={item.Image}
                       alt={item.username}
-                      width={100}
-                      height={100}
                       className="w-10"
                     />
                   </td>
