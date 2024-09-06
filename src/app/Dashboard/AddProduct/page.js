@@ -358,7 +358,7 @@ export default function AddProduct() {
       setProductName(product.productName);
       setProductDescription(product.productContent);
       setProductImage(null); // Keep image as it is
-      setImagePreview(`/uploads/${product.displayImage}`); // Assuming the image URL is available
+      setImagePreview(product.displayImage); // Assuming the image URL is available
       setProductId(product._id);
     } catch (error) {
       console.error('Error fetching product details:', error);
