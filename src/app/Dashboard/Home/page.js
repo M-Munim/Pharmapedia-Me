@@ -3,6 +3,8 @@
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import HomeLayout from '../Components/HomeLayout';
+import useTokenRedirect from '@/middleware';
+
 
 // Register the required components
 ChartJS.register(
@@ -72,6 +74,7 @@ const reviewsData = {
 };
 
 export default function Home() {
+  useTokenRedirect();
   return (
     <HomeLayout>
       <div className="p-3">

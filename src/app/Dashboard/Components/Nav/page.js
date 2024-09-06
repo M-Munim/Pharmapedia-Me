@@ -4,11 +4,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "axios"; // Ensure axios is imported
+import { useCallback } from 'react';
 
 const Nav = () => {
   const router = useRouter();
 
-  const Logout = async () => {
+  const Logout = useCallback(async () => {
     try {
       // Call the API to log out the user server-side
       await axios.get("/api/User/Logout");
@@ -19,21 +20,18 @@ const Nav = () => {
 
       // Check if the token is successfully removed
       if (!localStorage.getItem('token')) {
-        // Clear all cookies (if any are set)
-
         // Show success message
         toast.success("Logged out successfully!!!");
+
+        // Redirect to login page
         router.push("/Dashboard/Login");
       }
-
-      // Redirect to login page
 
     } catch (error) {
       console.error(`Error during logout: ${error.message}`);
       toast.error("Failed to log out. Please try again.");
     }
-  };
-
+  }, [router]);
 
 
   return (
