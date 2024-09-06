@@ -34,7 +34,7 @@ const Nav = () => {
       // local
       // router.push("/Dashboard/Login");
       // okk
-      router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+      router.push("/Dashboard/Login");
 
     } catch (error) {
       console.error(`Error logging out: ${error.message}`);
