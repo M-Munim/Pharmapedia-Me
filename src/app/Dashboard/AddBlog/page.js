@@ -630,22 +630,19 @@ const AddBlog = () => {
                 <td className="py-3 px-4 border-b border-gray-200">{i + 1}</td>
                 <td className="py-3 px-4 border-b border-gray-200">{item.author}</td>
                 <td className="py-3 px-4 border-b border-gray-200">
-                  <Image
-                    src={`/uploads/${item.authorImage}`}
+                  <img
+                    src={item.authorImage}
                     alt='Blog image'
-                    width={100}
-                    height={100}
-                    className='bg-red-300'
+                  // className='bg-red-300'
                   />
                 </td>
                 <td className="py-3 px-4 border-b border-gray-200">{item.title}</td>
                 <td className="py-3 px-4 border-b border-gray-200">
-                  <Image
-                    src={`/uploads/${item.displayImage}`}
+                  <img
+                    src={item.displayImage}
                     alt='Blog image'
-                    width={100}
-                    height={100}
-                    className='bg-red-300'
+
+                  // className='bg-red-300'
                   />
                 </td>
                 <td className="py-3 px-4 border-b border-gray-200">{item.datetime}</td>
@@ -739,10 +736,9 @@ const AddBlog = () => {
                   className="border rounded-lg p-2 w-full"
                 />
                 {imagePreview && (
-                  <Image
+                  <img
                     src={imagePreview} alt="Image Preview"
-                    width={100}
-                    height={100}
+
                     className='mt-2'
                   />
                 )}
@@ -759,7 +755,7 @@ const AddBlog = () => {
                   className="border rounded-lg p-2 w-full"
                 />
                 {imagePreviewtwo && (
-                  <Image
+                  <img
                     src={imagePreviewtwo} alt="Image Preview"
                     width={100}
                     height={100}
