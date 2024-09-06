@@ -59,80 +59,80 @@ export async function DELETE(request, context) {
   }
 }
 
-// pages/api/users/[userID].js
-export async function PUT(request, context) {
-  try {
-    await connect();
-    const id = context.params.userID;
+// // pages/api/users/[userID].js
+// export async function PUT(request, context) {
+//   try {
+//     await connect();
+//     const id = context.params.userID;
 
-    const data = await request.formData();
+//     const data = await request.formData();
 
-    const file = data.get("Image");
-    console.log(file);
-    let filename = null;
-    let buffer = null;
+//     const file = data.get("Image");
+//     console.log(file);
+//     let filename = null;
+//     let buffer = null;
 
-    if (typeof file === "object") {
-      filename = file.name;
-      const byteData = await file.arrayBuffer();
-      buffer = Buffer.from(byteData);
-      const filePath = `./public/uploads/${filename}`;
-      await writeFile(filePath, buffer);
-    }
+//     if (typeof file === "object") {
+//       filename = file.name;
+//       const byteData = await file.arrayBuffer();
+//       buffer = Buffer.from(byteData);
+//       const filePath = `./public/uploads/${filename}`;
+//       await writeFile(filePath, buffer);
+//     }
 
-    const formDataObject = {};
+//     const formDataObject = {};
 
-    // Iterate over form data entries
-    for (const [key, value] of data.entries()) {
-      // Assign each field to the formDataObject
-      formDataObject[key] = value;
-    }
-    console.log("data from frontend", formDataObject);
-    const { username, email, password, confirmpassword, designation, phone } =
-      formDataObject;
+//     // Iterate over form data entries
+//     for (const [key, value] of data.entries()) {
+//       // Assign each field to the formDataObject
+//       formDataObject[key] = value;
+//     }
+//     console.log("data from frontend", formDataObject);
+//     const { username, email, password, confirmpassword, designation, phone } =
+//       formDataObject;
 
-    // Check if the user exists
-    const user = await User.findById(id);
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
+//     // Check if the user exists
+//     const user = await User.findById(id);
+//     if (!user) {
+//       return NextResponse.json({ error: "User not found" }, { status: 404 });
+//     }
 
-    // Update the user details
-    user.username = username || user.username;
-    user.email = email || user.email;
-    user.designation = designation || user.designation;
-    user.phone = phone || user.phone;
+//     // Update the user details
+//     user.username = username || user.username;
+//     user.email = email || user.email;
+//     user.designation = designation || user.designation;
+//     user.phone = phone || user.phone;
 
-    if (password !== confirmpassword) {
-      return NextResponse.json({
-        message: "Both password and confirmpassword must be same",
-      });
-    }
+//     if (password !== confirmpassword) {
+//       return NextResponse.json({
+//         message: "Both password and confirmpassword must be same",
+//       });
+//     }
 
-    if (password) {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-    }
+//     if (password) {
+//       const salt = await bcrypt.genSalt(10);
+//       user.password = await bcrypt.hash(password, salt);
+//     }
 
-    if (confirmpassword) {
-      user.confirmpassword = confirmpassword;
-    }
+//     if (confirmpassword) {
+//       user.confirmpassword = confirmpassword;
+//     }
 
-    if (filename) {
-      user.Image = filename;
-    }
+//     if (filename) {
+//       user.Image = filename;
+//     }
 
-    await user.save();
+//     await user.save();
 
-    return NextResponse.json({ message: "User updated successfully", user });
-  } catch (error) {
-    console.error("Error Updating User:", error);
-    return NextResponse.json(
-      { error: "Failed to update user" },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json({ message: "User updated successfully", user });
+//   } catch (error) {
+//     console.error("Error Updating User:", error);
+//     return NextResponse.json(
+//       { error: "Failed to update user" },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 // get specific
 export async function GET(request, context) {
@@ -149,5 +149,104 @@ export async function GET(request, context) {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ Message: "Internal Server Error " });
+  }
+}
+
+
+
+// put
+import bcrypt from 'bcrypt';
+import User from '@/app/models/UserModel.js';
+import { connect } from '@/app/api/config/db';
+import { NextResponse } from 'next/server';
+import cloudinary from 'cloudinary';
+
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+
+
+export async function PUT(request, context) {
+  try {
+    await connect();
+    const id = context.params.userID;
+    const data = await request.formData();
+
+    const file = data.get("Image");
+    let imageUrl = null;
+
+    if (file) {
+      const byteData = await file.arrayBuffer();
+      const buffer = Buffer.from(byteData);
+
+      // Upload to Cloudinary
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.v2.uploader.upload_stream(
+          { resource_type: "auto" },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        ).end(buffer);
+      });
+
+      imageUrl = uploadResponse.secure_url;
+      console.log(`Uploaded image URL: ${imageUrl}`);
+    }
+
+    const formDataObject = {};
+    for (const [key, value] of data.entries()) {
+      formDataObject[key] = value;
+    }
+    console.log("data from frontend", formDataObject);
+
+    const { username, email, password, confirmpassword, designation, phone } = formDataObject;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Update the user details
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.designation = designation || user.designation;
+    user.phone = phone || user.phone;
+
+    if (password !== confirmpassword) {
+      return NextResponse.json({
+        message: "Both password and confirmpassword must be the same",
+      });
+    }
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+    }
+
+    if (confirmpassword) {
+      user.confirmpassword = confirmpassword;
+    }
+
+    if (imageUrl) {
+      user.Image = imageUrl; // Update user image URL from Cloudinary
+    }
+
+    await user.save();
+
+    return NextResponse.json({ message: "User updated successfully", user });
+  } catch (error) {
+    console.error("Error Updating User:", error);
+    return NextResponse.json(
+      { error: "Failed to update user" },
+      { status: 500 }
+    );
   }
 }
