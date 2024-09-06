@@ -22,7 +22,7 @@ const Nav = () => {
       console.log(tokenget);
 
 
-      if (!tokenget) {
+      if (tokenget === null) {
         // Optionally clear cookies if used
         document.cookie.split(";").forEach((c) => {
           document.cookie = c

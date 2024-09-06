@@ -1,8 +1,20 @@
 
+// const { connect } = require("@/app/api/config/db");
+// const { default: BlogModel } = require("@/app/models/BlogModel");
+// const { writeFile } = require("fs/promises");
+// const { NextResponse } = require("next/server");
+
 const { connect } = require("@/app/api/config/db");
 const { default: BlogModel } = require("@/app/models/BlogModel");
-const { writeFile } = require("fs/promises");
 const { NextResponse } = require("next/server");
+const cloudinary = require('cloudinary').v2;
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request) {
   try {
@@ -12,26 +24,34 @@ export async function POST(request) {
     // Handling the uploaded files
     const file1 = data.get("displayImage");
     const file2 = data.get("authorImage");
-    const displayImage = file1.name;
-    const authorImage = file2.name;
-
-    console.log(displayImage);
-    console.log(authorImage);
 
     // Convert file data to buffer
     const buffer1 = Buffer.from(await file1.arrayBuffer());
     const buffer2 = Buffer.from(await file2.arrayBuffer());
 
-    console.log(buffer1);
-    console.log(buffer2);
+    // Upload files to Cloudinary
+    const uploadResponse1 = await cloudinary.uploader.upload_stream({
+      resource_type: "image",
+      folder: "blogs", // Folder in Cloudinary where images will be saved
+    }, (error, result) => {
+      if (error) {
+        throw new Error("Error uploading displayImage: " + error.message);
+      }
+      return result;
+    }).end(buffer1);
 
-    // File save paths
-    const filePath1 = `./public/uploads/${displayImage}`;
-    const filePath2 = `./public/uploads/${authorImage}`;
+    const uploadResponse2 = await cloudinary.uploader.upload_stream({
+      resource_type: "image",
+      folder: "authors", // Folder in Cloudinary where images will be saved
+    }, (error, result) => {
+      if (error) {
+        throw new Error("Error uploading authorImage: " + error.message);
+      }
+      return result;
+    }).end(buffer2);
 
-    // Save the files
-    await writeFile(filePath1, buffer1);
-    await writeFile(filePath2, buffer2);
+    const displayImage = uploadResponse1.secure_url; // Cloudinary URL for display image
+    const authorImage = uploadResponse2.secure_url; // Cloudinary URL for author image
 
     // Constructing formDataObject excluding the files
     const formDataObject = {};
@@ -58,8 +78,8 @@ export async function POST(request) {
       blogContent,
       datetime,
       author,
-      displayImage,
-      authorImage,
+      displayImage, // Cloudinary URL
+      authorImage, // Cloudinary URL
     });
 
     const savedBlog = await newBlog.save();
@@ -77,6 +97,7 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message, status: 500 });
   }
 }
+
 
 export async function GET() {
   try {
