@@ -175,10 +175,10 @@ const Login = () => {
       // If using verification, uncomment the following code
       const isVerified = response.data.isVerified;
       if (isVerified) {
-        router.push("/AdminDashboard/Home");
+        router.push("/Dashboard/Home");
       } else {
         toast.warning("You are not verified for login😢");
-        router.push("/AdminDashboard/Login");
+        router.push("/Dashboard/Login");
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -202,7 +202,7 @@ const Login = () => {
         onSubmit={handleSubmit}
       >
         <h2 className="text-3xl font-bold mb-5">
-          {loading ? "Processing..." : "Encoderbytes Dashboard"}
+          {loading ? "Processing..." : "Pharmapedia Dashboard"}
         </h2>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
