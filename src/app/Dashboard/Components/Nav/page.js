@@ -9,7 +9,7 @@ import axios from "axios"; // Ensure axios is imported
 const Nav = () => {
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const Logout = async () => {
     try {
       // Call the API to log out the user server-side
 
@@ -51,7 +51,7 @@ const Nav = () => {
 
   // Use client-side lifecycle to handle the logout
   useEffect(() => {
-    handleLogout();
+    Logout();
   }, []); // Runs only once after the component mounts (client-side)
 
 
