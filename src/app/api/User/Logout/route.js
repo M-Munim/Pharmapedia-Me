@@ -13,7 +13,7 @@ export async function GET() {
     response.cookies.set("token", "", {
       httpOnly: true,
       expires: new Date(0),
-      path: 'https://pharmapedia-me.vercel.app/',
+      path: '/',
       sameSite: 'None',
       secure: true,
     });
