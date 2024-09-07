@@ -13,22 +13,13 @@ const Nav = () => {
   const Logout = async () => {
     try {
       // Call the API to log out the user server-side
-      await axios.get("/api/User/Logout");
+      // await axios.get("/api/User/Logout");
 
-      // Clear local storage
+      // // Clear local storage
       localStorage.removeItem("userId");
-      const cookie = localStorage.removeItem("token");
-      localStorage.setItem("token", "dksfjdlksjfsdkjfkldsj");
-      localStorage.removeItem("email");
-      // const copokie = Cookies.remove('token');
-      const copokie = Cookies.remove('token');
-      console.log('logout one')
-      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-      console.log('logout two')
+      localStorage.removeItem("token");
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-      localStorage.removeItem("username");
-      // deleteCookie('token');
-      console.log(copokie);
 
 
       // Check if the token is successfully removed
