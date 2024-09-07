@@ -11,32 +11,23 @@ const Nav = () => {
   const router = useRouter();
 
   const Logout = useCallback(async () => {
+    const router = useRouter();
+
     try {
-      // Call the API to log out the user server-side
+      // Call the API to log out the user server-side and remove the token cookie
       await axios.get("/api/User/Logout");
 
       // Clear local storage
       localStorage.removeItem("userId");
-      const cookie = localStorage.removeItem("token");
       localStorage.removeItem("email");
-      const copokie = Cookies.remove('token');
-      console.log('logout one')
-      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-      console.log('logout two')
-
       localStorage.removeItem("username");
-      // deleteCookie('token');
-      console.log(copokie);
 
+      // Clear client-side token cookie
+      Cookies.remove('token');
 
-      // Check if the token is successfully removed
-      if (!cookie) {
-        // Show success message
-        toast.success("Logged out successfully!!!");
-
-        // Redirect to login page
-        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
-      }
+      // Redirect to login page
+      toast.success("Logged out successfully!!!");
+      router.push("/Dashboard/Login");
 
     } catch (error) {
       console.error(`Error during logout: ${error.message}`);
