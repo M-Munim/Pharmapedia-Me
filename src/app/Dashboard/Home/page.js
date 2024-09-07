@@ -78,14 +78,12 @@ const reviewsData = {
   ],
 };
 
-export default function Page() {
+export default function Home() {
   // if (!isAuthenticated()) {
   //   router.push("/Dashboard/Login");
   //   return;
   // }
-  const token = localStorage.getItem("token");
-  console.log(token);
-
+  // const token = localStorage.getItem("token");
   return (
     <HomeLayout>
       <div className="p-3">
