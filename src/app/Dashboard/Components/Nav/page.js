@@ -1,11 +1,10 @@
 "use client"
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "axios"; // Ensure axios is imported
-import { useCallback } from 'react';
-import Cookies from 'js-cookie';
+
 
 const Nav = () => {
   const router = useRouter();
