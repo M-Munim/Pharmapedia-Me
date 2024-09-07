@@ -4,7 +4,7 @@ import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement } from 'chart.js';
 import HomeLayout from '../Components/HomeLayout';
 import { toast } from "react-toastify";
-import { isAuthenticated } from '@/components/Authen';
+// import { isAuthenticated } from '@/components/Authen';
 // import { isAuthenticated } from '@/middleware';
 // import { useRouter } from "next/navigation";
 // import { useEffect } from 'react';
@@ -79,10 +79,13 @@ const reviewsData = {
 };
 
 export default function Home() {
-  if (!isAuthenticated()) {
-    router.push("/Dashboard/Login");
-    return;
-  }
+  // if (!isAuthenticated()) {
+  //   router.push("/Dashboard/Login");
+  //   return;
+  // }
+  const token = localStorage.getItem("token");
+  console.log(token);
+
   return (
     <HomeLayout>
       <div className="p-3">
