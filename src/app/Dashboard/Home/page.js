@@ -78,7 +78,7 @@ const reviewsData = {
   ],
 };
 
-export default function Home() {
+export default function Page() {
   // if (!isAuthenticated()) {
   //   router.push("/Dashboard/Login");
   //   return;
