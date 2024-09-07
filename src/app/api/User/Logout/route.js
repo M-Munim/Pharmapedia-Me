@@ -8,13 +8,19 @@ export async function GET() {
       message: "Logout successful",
       success: true,
     });
+
+    // Remove the token cookie
     response.cookies.set("token", "", {
-      httpOnly: true,   // Ensure the cookie is not accessible via JavaScript
-      expires: new Date(0),  // Set the expiration date to a past date, which effectively deletes the cookie
-      path: '/',  // Set the path to ensure the correct cookie is deleted
+      httpOnly: true,
+      expires: new Date(0),
+      path: '/',
+      sameSite: 'None',
+      secure: true,
     });
+
     return response;
   } catch (error) {
+    console.error(`Error during logout: ${error.message}`);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
