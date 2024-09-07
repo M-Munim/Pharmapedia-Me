@@ -14,6 +14,9 @@ const Nav = () => {
       // Call the API to log out the user server-side
 
       // Show cookies before removal (client-side only)
+
+
+      await axios.get("/api/User/Logout");
       const allCookies = document.cookie; // Get all cookies as a string
       console.log("Cookies before deletion:", allCookies);
 
@@ -23,9 +26,6 @@ const Nav = () => {
       // Show cookies after removal to verify if it's removed
       const cookiesAfterRemoval = document.cookie;
       console.log("Cookies after deletion:", cookiesAfterRemoval);
-
-      await axios.get("/api/User/Logout");
-
       // Clear local storage
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
