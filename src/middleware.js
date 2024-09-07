@@ -73,12 +73,12 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const useTokenRedirect = () => {
+const useTokenRedirect = (request) => {
   const router = useRouter();
 
   useEffect(() => {
     const checkToken = () => {
-      const token = localStorage.getItem('token');
+      const token = request.localStorage.getItem('token');
       const { pathname } = router;
 
       if (!token && pathname.startsWith('/Dashboard')) {
