@@ -11,42 +11,20 @@ const Nav = () => {
 
   const Logout = async () => {
     try {
-      // Call the API to log out the user server-side
-
-      // Show cookies before removal (client-side only)
-
-
-      await axios.get("/api/User/Logout");
-      const allCookies = document.cookie; // Get all cookies as a string
-      console.log("Cookies before deletion:", allCookies);
-
-      // Remove the token cookie
-      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
-
-      // Show cookies after removal to verify if it's removed
-      const cookiesAfterRemoval = document.cookie;
-      console.log("Cookies after deletion:", cookiesAfterRemoval);
-      // Clear local storage
-      localStorage.removeItem("userId");
-      localStorage.removeItem("token");
-
-      // Show localStorage values after removal
-      const value = localStorage.getItem("token");
-      console.log("localStorage token:", value);  // Should be null if removed properly
-
-      // Show success message
-      toast.success("Logged out successfully!!!");
-
-      // Redirect to login page
-      router.push("/Dashboard/Login");
-
+      await axios.get("/api/User/Logout", { timeout: 10000 });
     } catch (error) {
-      // Log the error to the console
-      console.error(`Error during logout: ${error.message}`);
-
-      // Show error message to the user
-      toast.error("Failed to log out. Please try again.");
+      console.error(`Error logging out: ${error.message}`);
     }
+
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // localStorage.removeItem("username");
+    // localStorage.removeItem("email");
+    // Cookies.remove("token");
+
+    router.push("/Dashboard/Login");
+    toast.success("Logged out successfully");
   };
 
   // // Use client-side lifecycle to handle the logout
