@@ -13,13 +13,16 @@ const Nav = () => {
   const Logout = async () => {
     try {
       // Call the API to log out the user server-side
-      const res = await axios.get("/api/User/Logout");
-      console.log(res)
+      await axios.get("/api/User/Logout");
+      // const res = await axios.get("/api/User/Logout");
+      // console.log(res)
 
       // Clear local storage
-      localStorage.removeItem("userId");
-      localStorage.removeItem("token");
-
+      localStorage.removeItem("userId"); localStorage.removeItem("token");
+      const value = localStorage.getItem("token");
+      const co = document.cookie;
+      console.log("localstorage:", value)
+      console.log("cookies", co)
       // Remove the token cookie (make sure the path and other attributes match how it was set)
       document.cookie = "token=token; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
 
