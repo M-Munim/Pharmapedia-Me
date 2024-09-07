@@ -1,38 +1,44 @@
 "use client"
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "axios"; // Ensure axios is imported
-
+import { useCallback } from 'react';
+import Cookies from 'js-cookie';
 
 const Nav = () => {
   const router = useRouter();
 
-  const Logout = async () => {
+  const Logout = useCallback(async () => {
     try {
-      await axios.get("/api/User/Logout", { timeout: 10000 });
+      // Call the API to log out the user server-side
+      await axios.get("/api/User/Logout");
+
+      // Clear local storage
+      localStorage.removeItem("userId");
+      const cookie = localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      const copokie = Cookies.remove('token');
+      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+      // deleteCookie('token');
+      console.log(copokie);
+
+
+      // Check if the token is successfully removed
+      if (!cookie) {
+        // Show success message
+        toast.success("Logged out successfully!!!");
+
+        // Redirect to login page
+        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+      }
+
     } catch (error) {
-      console.error(`Error logging out: ${error.message}`);
+      console.error(`Error during logout: ${error.message}`);
+      toast.error("Failed to log out. Please try again.");
     }
-
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // localStorage.removeItem("username");
-    // localStorage.removeItem("email");
-    // Cookies.remove("token");
-
-    router.push("/Dashboard/Login");
-    toast.success("Logged out successfully");
-  };
-
-  // // Use client-side lifecycle to handle the logout
-  // useEffect(() => {
-  //   Logout();
-  // }, []); // Runs only once after the component mounts (client-side)
-
-
+  }, [router]);
 
 
   return (
