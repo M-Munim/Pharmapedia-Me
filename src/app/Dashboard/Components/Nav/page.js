@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 const Nav = () => {
   const router = useRouter();
 
-  const Logout = useCallback(async () => {
+  const Logout = async () => {
     try {
       // Call the API to log out the user server-side
       await axios.get("/api/User/Logout");
@@ -18,7 +18,7 @@ const Nav = () => {
       // Clear local storage
       localStorage.removeItem("userId");
       const cookie = localStorage.removeItem("token");
-      localStorage.set("token", "dksfjdlksjfsdkjfkldsj");
+      localStorage.setItem("token", "dksfjdlksjfsdkjfkldsj");
       localStorage.removeItem("email");
       // const copokie = Cookies.remove('token');
       const copokie = Cookies.remove('token');
@@ -43,7 +43,7 @@ const Nav = () => {
       console.error(`Error during logout: ${error.message}`);
       toast.error("Failed to log out. Please try again.");
     }
-  }, [router]);
+  }
 
 
   return (
