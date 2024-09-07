@@ -21,7 +21,7 @@ const Nav = () => {
       localStorage.removeItem("token");
 
       // Remove the token cookie (make sure the path and other attributes match how it was set)
-      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
+      document.cookie = "token=token; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
 
       // Show success message
       toast.success("Logged out successfully!!!");
