@@ -276,8 +276,9 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ message: "Product not found", status: 404 });
     }
 
+    const imagePublicId = Find_Pro.publicId; // Ensure this matches your 
+
     // Get the file path for the images associated with the product
-    const imagePath1 = path.join("./public/uploads/", Find_Pro.displayImage);
     // console.log(imagePath1);
 
     // Delete the product from the database
@@ -289,12 +290,18 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ message: "Product not found", status: 404 });
     }
 
-    // Delete the associated images from the filesystem
-    try {
-      await unlink(imagePath1);
-      console.log(`Deleted files: ${imagePath1}`);
-    } catch (error) {
-      console.error(`Failed to delete files: ${imagePath1}`, error);
+   
+    // Delete the image from Cloudinary if publicId exists
+    if (imagePublicId) {
+      try {
+        const cloudinaryResponse1 = await cloudinary.v2.uploader.destroy(
+          imagePublicId
+        );
+
+        console.log(`Cloudinary response: ${cloudinaryResponse1.result}`);
+      } catch (error) {
+        console.error("Failed to delete image from Cloudinary:", error);
+      }
     }
 
     // Return a success response

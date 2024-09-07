@@ -20,7 +20,9 @@ export async function POST(request) {
     const file2 = data.get("authorImage");
 
     let displayImage = "";
+    let displayImageId = "";
     let authorImage = "";
+    let authorImageId = "";
 
     // Upload files to Cloudinary
     if (file1) {
@@ -39,6 +41,7 @@ export async function POST(request) {
       });
 
       displayImage = uploadResponse1.secure_url; // Cloudinary URL for display image
+      displayImageId = uploadResponse1.public_id;
     }
 
     if (file2) {
@@ -57,6 +60,8 @@ export async function POST(request) {
       });
 
       authorImage = uploadResponse2.secure_url; // Cloudinary URL for author image
+      authorImageId = uploadResponse2.public_id;
+
     }
 
     // Constructing formDataObject excluding the files
@@ -86,7 +91,15 @@ export async function POST(request) {
       author,
       displayImage, // Cloudinary URL
       authorImage, // Cloudinary URL
+      displayImageId,
+      authorImageId
+
     });
+
+    console.log(newBlog);
+
+    // return;
+
 
     const savedBlog = await newBlog.save();
     if (!savedBlog) {

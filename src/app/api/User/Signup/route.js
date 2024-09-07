@@ -20,6 +20,7 @@ export async function POST(Request) {
 
     const file = data.get("Image");
     let imageUrl = "";
+    let displayImageId = "";
 
     if (file) {
       const byteData = await file.arrayBuffer();
@@ -39,7 +40,9 @@ export async function POST(Request) {
         ).end(buffer);
       });
 
-      imageUrl = uploadResponse.secure_url;
+      imageUrl = uploadResponse.secure_url; // Cloudinary URL for the image
+      displayImageId = uploadResponse.public_id; // Cloudinary URL for the image
+
       console.log(`Uploaded image URL: ${imageUrl}`);
     } else {
       // Use a default image if no file is uploaded
@@ -79,6 +82,8 @@ export async function POST(Request) {
       email,
       password: hashedPassword,
       Image: imageUrl, // Use the uploaded or default image
+      publicId: displayImageId,
+      confirmpassword,
       designation,
       phone,
     });

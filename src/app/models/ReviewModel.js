@@ -21,6 +21,10 @@ const ReviewsSchema = new mongoose.Schema({
   picture: {
     type: String, // Optional field for the picture URL or path
   },
+  // publicId: {
+  //   type: String,
+  //   // required: true,
+  // },
 });
 
 // Create or use the existing model

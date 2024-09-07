@@ -29,6 +29,7 @@ export async function DELETE(request, context) {
       return NextResponse.json({ message: "User not found", status: 404 });
     }
 
+    const imagePublicId = user.publicId; // Ensure this matches your 
     // Get the image file path
     const imagePath = path.join("./public/uploads/", user.Image);
     console.log(imagePath);
@@ -42,12 +43,16 @@ export async function DELETE(request, context) {
       return NextResponse.json({ message: "User not found", status: 404 });
     }
 
-    // Delete the image file from the filesystem
-    try {
-      await unlink(imagePath);
-      console.log(`Deleted file: ${imagePath}`);
-    } catch (error) {
-      console.error(`Failed to delete file: ${imagePath}`, error);
+    if (imagePublicId) {
+      try {
+        const cloudinaryResponse1 = await cloudinary.v2.uploader.destroy(
+          imagePublicId
+        );
+
+        console.log(`Cloudinary response: ${cloudinaryResponse1.result}`);
+      } catch (error) {
+        console.error("Failed to delete image from Cloudinary:", error);
+      }
     }
 
     return NextResponse.json({

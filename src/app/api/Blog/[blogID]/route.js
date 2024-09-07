@@ -136,51 +136,111 @@ export async function GET(request, { params }) {
 
 
 
-// delete
-export async function DELETE(request, { params }) {
+// // delete
+// export async function DELETE(request, { params }) {
+//   try {
+//     // Extract the product ID from the request parameters
+//     const id = params.blogID;
+//     console.log(id);
+
+//     // Connect to the database
+//     await connect();
+
+//     // Find the product by ID
+//     const Find_Pro = await BlogModel.findById(id);
+
+//     // Check if the product exists
+//     if (!Find_Pro) {
+//       return NextResponse.json({ message: "Product not found", status: 404 });
+//     }
+
+//     // Get the public ID for the image associated with the product
+//     const publicId = Find_Pro.displayImage; // Assumes displayImage contains the public ID
+
+//     // Delete the image from Cloudinary
+//     try {
+//       await cloudinary.uploader.destroy(publicId);
+//       console.log(`Deleted image from Cloudinary: ${publicId}`);
+//     } catch (error) {
+//       console.error(`Failed to delete image from Cloudinary: ${publicId}`, error);
+//     }
+
+//     // Delete the product from the database
+//     const _deletedpro = await BlogModel.findByIdAndDelete(id);
+
+//     // Check if the product was found and deleted
+//     if (!_deletedpro) {
+//       return NextResponse.json({ message: "blog not found", status: 404 });
+//     }
+
+//     // Return a success response
+//     return NextResponse.json({
+//       message: "blog deleted successfully",
+//       status: 200,
+//     });
+//   } catch (error) {
+//     console.error("Error deleting blog:", error);
+//     // Return an error response
+//     return NextResponse.json({ error: "Failed to delete blog", status: 500 });
+//   }
+// }
+
+
+
+// Delete a blog post
+export async function DELETE(request, context) {
   try {
-    // Extract the product ID from the request parameters
-    const id = params.blogID;
-    console.log(id);
+    const id = context.params.blogID;
+    console.log("Blog ID:", id);
 
     // Connect to the database
     await connect();
 
-    // Find the product by ID
-    const Find_Pro = await BlogModel.findById(id);
+    // Find the blog by ID
+    const blog = await BlogModel.findById(id);
 
-    // Check if the product exists
-    if (!Find_Pro) {
-      return NextResponse.json({ message: "Product not found", status: 404 });
+    if (!blog) {
+      return NextResponse.json({ message: "Blog not found", status: 404 });
     }
 
-    // Get the public ID for the image associated with the product
-    const publicId = Find_Pro.displayImage; // Assumes displayImage contains the public ID
+    console.log("Blog:", blog);
+    const imagePublicId = blog.displayImageId; // Ensure this matches your schema
+    console.log("Image Public ID:", imagePublicId);
+    const authorImageId = blog.authorImageId; // Ensure this matches your schema
+    console.log("Image Public ID:", authorImageId);
 
-    // Delete the image from Cloudinary
-    try {
-      await cloudinary.uploader.destroy(publicId);
-      console.log(`Deleted image from Cloudinary: ${publicId}`);
-    } catch (error) {
-      console.error(`Failed to delete image from Cloudinary: ${publicId}`, error);
+    // Delete the blog from the database
+    const deletedBlog = await BlogModel.findByIdAndDelete(id);
+
+    if (!deletedBlog) {
+      return NextResponse.json({
+        message: "Failed to delete blog",
+        status: 500,
+      });
     }
 
-    // Delete the product from the database
-    const _deletedpro = await BlogModel.findByIdAndDelete(id);
-
-    // Check if the product was found and deleted
-    if (!_deletedpro) {
-      return NextResponse.json({ message: "blog not found", status: 404 });
+    // Delete the image from Cloudinary if publicId exists
+    if (imagePublicId && authorImageId) {
+      try {
+        const cloudinaryResponse1 = await cloudinary.v2.uploader.destroy(
+          imagePublicId
+        );
+        const cloudinaryResponse2 = await cloudinary.v2.uploader.destroy(
+          authorImageId
+        );
+        console.log(`Cloudinary response: ${cloudinaryResponse1.result}`);
+        console.log(`Cloudinary response: ${cloudinaryResponse2.result}`);
+      } catch (error) {
+        console.error("Failed to delete image from Cloudinary:", error);
+      }
     }
 
-    // Return a success response
     return NextResponse.json({
-      message: "blog deleted successfully",
+      message: "Blog and associated image deleted successfully",
       status: 200,
     });
   } catch (error) {
     console.error("Error deleting blog:", error);
-    // Return an error response
     return NextResponse.json({ error: "Failed to delete blog", status: 500 });
   }
 }
