@@ -10,11 +10,11 @@ import Cookies from 'js-cookie';
 const Nav = () => {
   const router = useRouter();
 
-  const Logout = async () => {
+  const handleLogout = async () => {
     try {
       // Call the API to log out the user server-side
 
-      // Show cookies before removal
+      // Show cookies before removal (client-side only)
       const allCookies = document.cookie; // Get all cookies as a string
       console.log("Cookies before deletion:", allCookies);
 
@@ -39,7 +39,7 @@ const Nav = () => {
       toast.success("Logged out successfully!!!");
 
       // Redirect to login page
-      router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
+      router.push("/Dashboard/Login");
 
     } catch (error) {
       // Log the error to the console
@@ -49,6 +49,11 @@ const Nav = () => {
       toast.error("Failed to log out. Please try again.");
     }
   };
+
+  // Use client-side lifecycle to handle the logout
+  useEffect(() => {
+    handleLogout();
+  }, []); // Runs only once after the component mounts (client-side)
 
 
 
