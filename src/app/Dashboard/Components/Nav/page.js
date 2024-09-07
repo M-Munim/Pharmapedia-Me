@@ -13,7 +13,8 @@ const Nav = () => {
   const Logout = async () => {
     try {
       // Call the API to log out the user server-side
-      await axios.get("/api/User/Logout");
+      const res = await axios.get("/api/User/Logout");
+      console.log(res)
 
       // Clear local storage
       localStorage.removeItem("userId");
