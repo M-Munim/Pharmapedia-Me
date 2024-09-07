@@ -18,7 +18,9 @@ const Nav = () => {
       // Clear local storage
       localStorage.removeItem("userId");
       const cookie = localStorage.removeItem("token");
+      localStorage.set("token", "dksfjdlksjfsdkjfkldsj");
       localStorage.removeItem("email");
+      // const copokie = Cookies.remove('token');
       const copokie = Cookies.remove('token');
       console.log('logout one')
       document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
@@ -30,13 +32,12 @@ const Nav = () => {
 
 
       // Check if the token is successfully removed
-      if (!cookie) {
-        // Show success message
-        toast.success("Logged out successfully!!!");
 
-        // Redirect to login page
-        router.push("https://pharmapedia-me.vercel.app/Dashboard/Login");
-      }
+      // Show success message
+      toast.success("Logged out successfully!!!");
+
+      // Redirect to login page
+      router.push("https://pharmapedia-me.vercel.app/Dashboard/Login")
 
     } catch (error) {
       console.error(`Error during logout: ${error.message}`);
