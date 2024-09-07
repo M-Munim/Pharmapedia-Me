@@ -49,10 +49,10 @@ const Nav = () => {
     }
   };
 
-  // Use client-side lifecycle to handle the logout
-  useEffect(() => {
-    Logout();
-  }, []); // Runs only once after the component mounts (client-side)
+  // // Use client-side lifecycle to handle the logout
+  // useEffect(() => {
+  //   Logout();
+  // }, []); // Runs only once after the component mounts (client-side)
 
 
 
