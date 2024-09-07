@@ -14,17 +14,25 @@ const Nav = () => {
     try {
       // Call the API to log out the user server-side
       await axios.get("/api/User/Logout");
-      // const res = await axios.get("/api/User/Logout");
-      // console.log(res)
 
       // Clear local storage
-      localStorage.removeItem("userId"); localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("token");
+
+      // Show localStorage values after removal
       const value = localStorage.getItem("token");
-      const co = document.cookie;
-      console.log("localstorage:", value)
-      console.log("cookies", co)
-      // Remove the token cookie (make sure the path and other attributes match how it was set)
-      document.cookie = "token=token; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
+      console.log("localStorage token:", value);  // Should be null if removed properly
+
+      // Show cookies before removal
+      const allCookies = document.cookie; // Get all cookies as a string
+      console.log("Cookies before deletion:", allCookies);
+
+      // Remove the token cookie
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None";
+
+      // Show cookies after removal to verify if it's removed
+      const cookiesAfterRemoval = document.cookie;
+      console.log("Cookies after deletion:", cookiesAfterRemoval);
 
       // Show success message
       toast.success("Logged out successfully!!!");
@@ -40,6 +48,7 @@ const Nav = () => {
       toast.error("Failed to log out. Please try again.");
     }
   };
+
 
 
 
