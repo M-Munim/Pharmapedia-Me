@@ -87,7 +87,7 @@ export default function Home() {
           <p className="text-sm md:text-xl text-t_grey">
             Pharmapedia Private Limited is a company specializing in mobile application development. Our focus lies primarily in the education sector, with an emphasis on medical education and STEM (Science, Technology, Engineering, and Mathematics) education.
           </p>
-          <Link href="/Blog">
+          <Link href="/Products">
             <button className="button-filled" aria-label="Explore More">
               Explore More
             </button>
@@ -97,14 +97,16 @@ export default function Home() {
         <div className="flex flex-wrap items-center justify-center gap-3 mt-10 cursor-pointer">
           {products.map((data, i) => (
             <div key={i} className='w-[327px] sm:w-[260px] md:w-[310px] lg:w-[415px] xl:w-[520px]'>
-              <Image
-                src={data.image}
-                width={100}
-                height={100}
-                alt="Products Image"
-                className="h-auto hover:scale-95 w-full transition-all"
-                loading="lazy"
-              />
+              <Link href="/Products">
+                <Image
+                  src={data.image}
+                  width={100}
+                  height={100}
+                  alt="Products Image"
+                  className="h-auto hover:scale-95 w-full transition-all"
+                  loading="lazy"
+                />
+              </Link>
             </div>
           ))}
         </div>

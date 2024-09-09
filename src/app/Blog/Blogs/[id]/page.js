@@ -21,8 +21,8 @@ const Page = ({ params }) => {
     const fetchBlogs = async () => {
       try {
         // local
-        // const response = await axios.get(`http://localhost:3000/api/Blog/${blogSpecificId}`);
-        const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Blog/${blogSpecificId}`);
+        const response = await axios.get(`http://localhost:3000/api/Blog/${blogSpecificId}`);
+        // const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Blog/${blogSpecificId}`);
         setBlogs(response.data.result);
         console.log('specific id of Blogs:', response.data.result);
       } catch (error) {
@@ -41,10 +41,10 @@ const Page = ({ params }) => {
     const fetchBlogs = async () => {
       try {
         // local
-        // const response = await axios.get('http://localhost:3000/api/Blog');
-        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
+        const response = await axios.get('http://localhost:3000/api/Blog');
+        // const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
         setAllBlogs(response.data.result);
-        // console.log(response.data.result);
+        console.log(response.data.result);
 
 
       } catch (error) {
@@ -195,10 +195,10 @@ const Page = ({ params }) => {
               </div>
             </div>
 
-            <h2 className="font-semibold text-2xl mt-10 mb-4">The Latest</h2>
-            {
+            <h2 className="font-semibold text-2xl mt-10 mb-2">The Latest</h2>
+            {/* {
               allBlogs.map((blogData) => (
-                <div className="mb-12 mt-14 w-11/12 m-auto text-white" key={blogData._id}>
+                <div className="mb-12 mt-10 w-11/12 m-auto text-white bg-black" key={blogData._id}>
                   <p className="font-semibold leading-tight">{blogData.title}</p>
 
                   <div
@@ -217,21 +217,49 @@ const Page = ({ params }) => {
                   </div>
                 </div>
               ))
-            }
+            } */}
+            {allBlogs.slice(0, 3).map((blogData, index) => (
+              <div
+                key={blogData._id}
+                className={`mb-12 mt-10 w-11/12 p-3 m-auto ${index === 0 ? 'text-white bg-cover bg-center' : 'bg-transparent text-black'
+                  }`}
+                style={index === 0 ? { backgroundImage: `url(/Group237624.svg)` } : {}}
+
+              >
+                <p className="font-semibold leading-tight">{blogData.title}</p>
+
+                <div
+                  className="text-justify mt-2"
+                  dangerouslySetInnerHTML={{
+                    __html: blogData.blogContent.length > 200
+                      ? `${blogData.blogContent.slice(0, 200)}...`
+                      : blogData.blogContent
+                  }}
+                ></div>
+                <div className="flex justify-center items-center gap-5 my-3">
+                  <p className="text-base font-semibold">{blogData.datetime}</p>
+                  <div className="w-6 border-1 border-t_grey"></div>
+                  <CiClock2 />
+                  <p className="text-sm font-semibold">2 minute read</p>
+                </div>
+              </div>
+            ))}
+
           </div>
         </div>
-      </section >
+      </section>
 
       <section className="">
         <div className="">
           <div className="w-11/12 m-auto flex justify-center items-center flex-wrap gap-7">
-            {allBlogs.map((blogData) => (
+            {allBlogs.slice(0, 3).map((blogData) => (
               <div className="relative my-5" style={{ width: "400px" }} key={blogData._id}>
-                <Image
-                  src={`/uploads/${blogData.displayImage}`}
+                <img
+                  src={blogData.authorImage}
                   alt={blogData.alt}
-                  width={468}
-                  height={358}
+                  style={{ width: "468px", height: "358px" }}
+                // width={468}
+                // height={358}
                 />
                 <div className="buttons flex absolute gap-1 top-4 left-4 text-white">
                   <p className="button-blog">{blogData.domain}</p>
@@ -251,8 +279,8 @@ const Page = ({ params }) => {
 
                   <div className="w-11/12">
                     <div className="flex items-center justify-between">
-                      <Image
-                        src={`/uploads/${blogData.authorImage}`}
+                      <img
+                        src={blogData.authorImage}
                         alt="author Img"
                         width={100}
                         height={100}
@@ -273,7 +301,7 @@ const Page = ({ params }) => {
                     </div>
 
                     <div
-                      className="text-justify mt-2"
+                      className="text-justify my-2"
                       dangerouslySetInnerHTML={{
                         __html: blogData.blogContent.length > 200
                           ? `${blogData.blogContent.slice(0, 200)}...`
@@ -281,11 +309,11 @@ const Page = ({ params }) => {
                       }}
                     ></div>
 
-                    <Link href={`Blog/Blogs/${blogData._id}`}
+                    {/* <Link href={`Blog/Blogs/${blogData._id}`}
                       className="text-base md:text-lg font-semibold hover:border-b-2 border-black"
                     >
                       View Post
-                    </Link>
+                    </Link> */}
 
                   </div>
                 </div>
@@ -322,7 +350,7 @@ const Page = ({ params }) => {
 
         <Image src='/Ellipse 45.svg' width={116} height={116} alt="Ellipse Image" className='absolute top-1/3 right-0' />
       </section>
-    </main >
+    </main>
   )
 }
 

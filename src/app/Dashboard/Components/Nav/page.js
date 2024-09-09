@@ -42,7 +42,7 @@ const Nav = () => {
 
 
   return (
-    <nav className="flex items-center justify-between bg-hover_blue h-16 pr-5">
+    <nav className="flex items-center justify-between bg-hover_blue h-16 px-5">
       <h2 className="text-white font-semibold text-xl">Pharmapedia Dashboard</h2>
       <button
         className="bg-hover_blue2 text-white px-2 py-1 rounded-md"

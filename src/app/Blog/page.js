@@ -15,16 +15,25 @@ const Blog = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedImage, setSelectedImage] = useState('/Post Picture.svg');
+  const [selectedImage, setSelectedImage] = useState('');
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         // local 
-        // const response = await axios.get('http://localhost:3000/api/Blog');
-        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
+        const response = await axios.get('http://localhost:3000/api/Blog');
+        // const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
         console.log('API Response:', response.data.result); // Log the full response
         setBlogs(response.data.result);
+
+        // Set default category if there are blogs available
+        if (response.data.result.length > 0) {
+          const defaultCategory = `Category 1`; // Assuming Category 1 is always present
+          const defaultCategoryImage = response.data.result[0].displayImage; // Or another way to get default image
+          setSelectedCategory(defaultCategory);
+          setSelectedImage(defaultCategoryImage);
+        }
+
       } catch (error) {
         console.error('Error fetching blogs:', error);
       }
@@ -33,14 +42,12 @@ const Blog = () => {
     fetchBlogs();
   }, []);
 
-  // Dynamically create categories from blogs
   const categories = blogs.map((blog, index) => ({
     name: `Category ${index + 1}`,
-    imageUrl: blog.displayImage ? `/uploads/${blog.displayImage}` : '/Post Picture.svg', // Construct image URL
+    imageUrl: blog.displayImage, // Construct image URL
     blog: blog,
     id: blog._id
   }));
-
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category.name);
@@ -84,7 +91,7 @@ const Blog = () => {
             {/* <Link href={`/Blog/${blogData.slug}`} key={blogData.id}> */}
             {blogs.map((blogData) => (
 
-              <div className="relative my-5 w-[360px] md:w-[325px] lg:w-[395px] xl:w-[400px]" key={blogData.id}>
+              <div className="relative my-5 w-[360px] md:w-[325px] lg:w-[395px] xl:w-[400px] bg-green-300" key={blogData.id}>
                 <img
                   src={blogData.displayImage}
                   alt='main img'
@@ -92,10 +99,10 @@ const Blog = () => {
                   height={358}
                   className='bg-red-300'
                 />
-                <div className="buttons flex absolute gap-1 top-4 left-4 text-white">
+                {/* <div className="buttons flex absolute gap-1 top-4 left-4 text-white">
                   <p className="button-blog">{blogData.domain}</p>
                   <p className="button-blog">{blogData.subDomain}</p>
-                </div>
+                </div> */}
                 <div className="absolute top-4 right-4">
                   <Image
                     src='/blogVideoPlay.svg'
@@ -132,10 +139,10 @@ const Blog = () => {
                     </div>
 
                     <div
-                      className="text-justify mt-2"
+                      className="text-justify my-2"
                       dangerouslySetInnerHTML={{
-                        __html: blogData.blogContent.length > 200
-                          ? `${blogData.blogContent.slice(0, 200)}...`
+                        __html: blogData.blogContent.length > 100
+                          ? `${blogData.blogContent.slice(0, 90)}...`
                           : blogData.blogContent
                       }}
                     ></div>
@@ -152,24 +159,28 @@ const Blog = () => {
               </div>
             ))}
           </div>
-          <button className="button-filled z-50 block m-auto">Load more</button>
+          {/* <button className="button-filled z-50 block m-auto">Load more</button> */}
         </div>
-      </section >
+      </section>
 
       <section className="m-auto w-full md:w-11/12" >
         <div className="md:h-[448px] h-auto flex items-end justify-center" style={{
           background: "radial-gradient(circle , #ABDCFF 0%, #298ED6 100%)"
         }}>
 
-          <div className="flex items-center flex-col md:flex-row justify-end  w-full md:w-11/12 m-auto md:ms-auto md:mb-0 mt-5" >
-            <div className="left text-white w-full md:w-1/2 flex flex-col items-start justify-start gap-3 p-3 md:p-0">
+          <div className="flex items-center flex-col md:flex-row justify-end  w-full md:w-11/12 ms-auto md:ms-auto md:mb-0 mt-5" >
+            <div className="left text-white  w-full md:w-1/2 flex flex-col items-start justify-start gap-3 p-3 md:p-0">
               <h1 className="text-2xl md:text-3xl font-light uppercase tracking-wider">Learn More About <br /> our Products</h1>
               <p className="text-sm md:text-lg tracking-wide leading-5 md:leading-7">Lorem ipsum dolor sit amet consectetur. Eu egestas libero viverra vulputate amet nunc lectus non ac. Arcu diam nullam ultrices consectetur. Gravida enim in sagittis mauris aliquam duis.</p>
-              <button className="button-filled">
-                Learn More
-              </button>
+
+              <Link href="/Products">
+
+                <button className="button-filled">
+                  Learn More
+                </button>
+              </Link>
             </div>
-            <div className="right  w-full md:w-1/2">
+            <div className="right w-full md:w-1/2 flex items-center justify-end ">
               <Image src="./blogPageiPhone12Pro.svg" width={1084} height={812} alt='blogPageImg' />
             </div>
           </div>
@@ -180,7 +191,7 @@ const Blog = () => {
             <div className="left w-full lg:w-8/12 border-2 flex justify-between gap-3 items-start px-2 md:px-5 py-1">
               <div className='w-7/12'>
                 <div className='flex items-end gap-1 md:gap-4'>
-                  {categories.map((category, index) => (
+                  {categories.slice(0, 3).map((category, index) => (
                     <button
                       key={index}
                       onClick={() => handleCategoryClick(category)}
@@ -191,27 +202,29 @@ const Blog = () => {
                   ))}
                 </div>
                 <div className='mt-2'>
-
-
-                  <Image src={selectedImage} width={467} height={225} alt='staticBlogImg' />
+                  <img src={selectedImage} className='w-[467px] h-[225px]' alt='staticBlogImg' />
                   <div className='w-11/12'>
                     <p className='text-pClr text-xs font-semibold my-1 md:my-2'>1 Month Ago</p>
                     <h2 className='my-1 md:my-2 font-semibold leading-5 text-sm md:text-base'>
                       {categories.find((cat) => cat.name === selectedCategory)?.blog.title || 'Lorem ipsum dolor sit amet consectetur. Ut sem vestibulum amet aliquam.'}
                     </h2>
-                    <p className='text-pClr text-xs md:text-sm'>
-                      {categories.find((cat) => cat.name === selectedCategory)?.blog.excerpt || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet nibh id lacus pharetra.'}
-                    </p>
-                    {/* 
-                    <Link href={`Blog/Blogs/${blogData._id}`}
-                      className="text-base md:text-lg font-semibold hover:border-b-2 border-black">
-                      View Post
-                    </Link> */}
+                    <div
+                      className="text-pClr text-xs md:text-sm"
+                      dangerouslySetInnerHTML={{
+                        __html: (categories.find((cat) => cat.name === selectedCategory)?.blog.blogContent.length > 100
+                          ? `${categories.find((cat) => cat.name === selectedCategory)?.blog.blogContent.slice(0, 90)}...`
+                          : categories.find((cat) => cat.name === selectedCategory)?.blog.blogContent) || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet nibh id lacus pharetra.'
+                      }}
+                    ></div>
+
+                    {/* <Link href={`Blog/Blogs/${blogData._id}`}
+          className="text-base md:text-lg font-semibold hover:border-b-2 border-black">
+          View Post
+        </Link> */}
 
                   </div>
                 </div>
               </div>
-
               <div className="w-5/12">
                 {
                   blogs.map((blogData) => (
@@ -220,9 +233,10 @@ const Blog = () => {
                         <img src={blogData.displayImage}
                           // width={122}
                           //  height={77}
+                          className='w-28 h-16'
                           alt='staticBlogImg' />
                       </div>
-                      <div className="flex flex-col items-start justify-between">
+                      <div className="flex flex-col items-start justify-center">
                         <p className='mb-0 font-semibold text-xs md:text-base leading-4 md:leading-5 '>{blogData.title}</p>
                         <p className='mb-0 font-normal text-pClr text-[10px]'>{blogData.datetime}</p>
                       </div>
@@ -236,16 +250,17 @@ const Blog = () => {
               <h3 className="font-bold text-sm">Manga reads</h3>
               <div className="">
                 {
-                  blogs.map((blogData) => (
+                  blogs.slice(0, 4).map((blogData) => (
                     <div className="my-5 flex gap-6" key={blogData._id}>
                       <div className="">
                         <img
                           src={blogData.displayImage}
                           // width={210}
                           // height={93}
+                          className='w-28 h-16'
                           alt='staticBlogImg' />
                       </div>
-                      <div className="flex flex-col items-start justify-between">
+                      <div className="flex flex-col items-start justify-center">
                         <p className='mb-0 font-semibold leading-5'>{blogData.title}</p>
                         <p className='mb-0 font-normal text-pClr text-[10px]'>{blogData.datetime}</p>
                       </div>

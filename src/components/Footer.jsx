@@ -66,7 +66,7 @@ const Footer = () => {
                 <p className="font-bold text-lg md:text-xl text-white">
                   Customer Care
                 </p>
-                <a href="/" className="text-sm md:text-lg">
+                <a href="" className="text-sm md:text-lg">
                   Contact us
                 </a>
                 <Link href="/Faqs" className="text-sm md:text-lg">

@@ -18,8 +18,8 @@ const Page = () => {
     const fetchProducts = async () => {
       try {
         // local
-        // const response = await axios.get('http://localhost:3000/api/Product');
-        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Product');
+        const response = await axios.get('http://localhost:3000/api/Product');
+        // const response = await axios.get('https://pharmapedia-me.vercel.app/api/Product');
         setProducts(response.data.result);
         console.log(response.data.result);
       } catch (error) {
@@ -67,18 +67,18 @@ const Page = () => {
         <div className=''>
           {products.map((product, index) => (
             <div
-              className={`w-11/12 ms-auto my-10 md:my-36 flex flex-col-reverse md:flex-row items-center justify-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+              className={`w-11/12 mx-auto my-10 md:my-36 flex flex-col-reverse md:flex-row  items-center justify-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
               id='drop'
               key={index}
             >
               <div className="flex items-start justify-end md:justify-center flex-col w-full md:w-1/2 h-auto md:h-[659px]">
-                <div className="w-full px-4 md:w-10/12 md:px-0 z-20">
+                <div className="w-full px-4 md:w-10/12 md:px-0 z-20 ms-10">
                   <h2 className="uppercase font-light text-2xl sm:text-3xl md:text-4xl text-heading_blue lg:tracking-wider">{product.productName}</h2>
                   <div
                     className="text-justify mt-2"
                     dangerouslySetInnerHTML={{
-                      __html: product.productContent.length > 300
-                        ? `${product.productContent.slice(0, 300)}...`
+                      __html: product.productContent.length > 200
+                        ? `${product.productContent.slice(0, 150)}...`
                         : product.productContent
                     }}
                   ></div>
@@ -91,35 +91,21 @@ const Page = () => {
                 </div>
               </div>
 
-              <div
-                className="right w-full md:w-1/2 relative h-[300px] md:h-[659px]"
-              // style={{
-              // backgroundImage: `url(/uploads/${product.bgImage})`
-              // , backgroundRepeat: "no-repeat", backgroundSize: "cover"
-              // }}
-              >
+              <div className="right w-full md:w-1/2 relative h-[300px] md:h-[659px]">
                 {/* src={`/uploads/${blogData.authorImage}`} */}
-                <Image
-                  src={`/uploads/${product.displayImage}`}
+                <img
+                  src={product.displayImage}
                   alt="product"
-                  width={365}
-                  height={751}
+                  // width={365}
+                  // height={751}
                   className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20"
                 />
-                <Image src='Ellipse 40.svg' alt="" width={186} height={186} className='absolute bottom-0 -left-10' />
+                <Image src='Ellipse 40.svg' alt="" width={186} height={186} className='absolute bottom-0 -left-10 z-30' />
                 <Image src='Ellipse 41.svg' alt="" width={100} height={100} className='absolute -bottom-60 right-0 z-20' />
               </div>
             </div>
           ))}
         </div>
-
-
-
-
-
-
-
-
       </section>
 
       {/* FORM */}

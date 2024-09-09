@@ -69,7 +69,7 @@ const Login = () => {
         className="bg-transparent p-10 rounded-xl shadow-xl w-96"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-3xl font-bold mb-5">
+        <h2 className="text-2xl font-bold mb-5">
           {loading ? "Processing..." : "Pharmapedia Dashboard"}
         </h2>
         <div className="mb-4">
@@ -114,11 +114,11 @@ const Login = () => {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-        <div className="mt-4 flex justify-end">
+        {/* <div className="mt-4 flex justify-end">
           <a href="/Register" className="text-blue-500 hover:underline">
             Register
           </a>
-        </div>
+        </div> */}
       </form>
     </div>
   );

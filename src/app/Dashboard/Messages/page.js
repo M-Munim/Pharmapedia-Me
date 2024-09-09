@@ -14,8 +14,8 @@ const Page = () => {
     try {
       const response = await axios.get(
         // local
-        // "http://localhost:3000/api/ContactForm"
-        "https://pharmapedia-me.vercel.app/api/ContactForm"
+        "http://localhost:3000/api/ContactForm"
+        // "https://pharmapedia-me.vercel.app/api/  ContactForm"
       );
       setMessage(response.data.result);
       console.log(response.data.result);

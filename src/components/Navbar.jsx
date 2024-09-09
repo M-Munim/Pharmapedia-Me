@@ -75,9 +75,8 @@ export default function Navbar() {
       </Head>
       <nav className="w-full relative">
         <div
-          className={`h-10 w-full flex items-center justify-center ${
-            moveTo === "Home" ? "bg-blue text-white" : "bg-white text-black"
-          }`}
+          className={`h-10 w-full flex items-center justify-center ${moveTo === "Home" ? "bg-blue text-white" : "bg-white text-black"
+            }`}
         >
           <div className="w-11/12 sm:w-9/12 flex m-auto justify-between">
             <div className="flex items-center  gap-3 text-3xl">
@@ -114,9 +113,8 @@ export default function Navbar() {
           </div>
         </div>
         <div
-          className={`h-20 md:h-28 flex items-center justify-center ${
-            moveTo !== "Home" ? "absolute w-full top-12 z-50" : "block"
-          } `}
+          className={`h-20 md:h-28 flex items-center justify-center ${moveTo !== "Home" ? "absolute w-full top-12 z-50" : "block"
+            } `}
         >
           <div className="w-10/12 flex justify-between items-center m-auto">
             <div className="flex-shrink-0">
@@ -133,7 +131,8 @@ export default function Navbar() {
                   priority
                   className="w-14 md:w-20"
                 />
-                <span className="text-lg lg:text-xl text-blue font-medium">
+                <span className={`text-lg lg:text-xl  font-medium ${moveTo === "Home" ? "text-blue" : "text-white"
+                  }`}>
                   {" "}
                   Pharmapedia
                 </span>
@@ -145,16 +144,14 @@ export default function Navbar() {
 
             <div className="flex-grow hidden lg:flex items-center justify-center">
               <ul
-                className={`flex justify-center items-center gap-7 text-base xl:text-lg ${
-                  moveTo !== "Home" ? "text-white" : ""
-                }`}
+                className={`flex justify-center items-center gap-7 text-base xl:text-lg ${moveTo !== "Home" ? "text-white" : ""
+                  }`}
               >
                 <li onClick={() => setMoveTo("Home")}>
                   <Link
                     href="/"
-                    className={`${
-                      moveTo === "Home" ? "text-hover_blue font-bold" : ""
-                    }`}
+                    className={`${moveTo === "Home" ? "text-hover_blue font-bold" : ""
+                      }`}
                   >
                     Home
                   </Link>
@@ -162,9 +159,8 @@ export default function Navbar() {
                 <li onClick={() => setMoveTo("About")}>
                   <Link
                     href="/About"
-                    className={`${
-                      moveTo === "About" ? "text-hover_blue2 font-bold" : ""
-                    }`}
+                    className={`${moveTo === "About" ? "text-hover_blue2 font-bold" : ""
+                      }`}
                   >
                     About us
                   </Link>
@@ -172,9 +168,8 @@ export default function Navbar() {
                 <li onClick={() => setMoveTo("Blog")}>
                   <Link
                     href="/Blog"
-                    className={`${
-                      moveTo === "Blog" ? "text-hover_blue2 font-bold" : ""
-                    }`}
+                    className={`${moveTo === "Blog" ? "text-hover_blue2 font-bold" : ""
+                      }`}
                   >
                     Blogs
                   </Link>
@@ -182,9 +177,8 @@ export default function Navbar() {
                 <li onClick={() => setMoveTo("Products")}>
                   <Link
                     href="/Products"
-                    className={`${
-                      moveTo === "Products" ? "text-hover_blue2 font-bold" : ""
-                    }`}
+                    className={`${moveTo === "Products" ? "text-hover_blue2 font-bold" : ""
+                      }`}
                   >
                     Products
                   </Link>
@@ -192,9 +186,8 @@ export default function Navbar() {
                 <li onClick={() => setMoveTo("FAQs")}>
                   <Link
                     href="/Faqs"
-                    className={`${
-                      moveTo === "FAQs" ? "text-hover_blue2 font-bold" : ""
-                    }`}
+                    className={`${moveTo === "FAQs" ? "text-hover_blue2 font-bold" : ""
+                      }`}
                   >
                     FAQs
                   </Link>
@@ -233,9 +226,8 @@ export default function Navbar() {
                 )}
               </div> */}
               <button
-                className={` ${
-                  moveTo !== "Home" ? "button-outlined2" : "button-outlined"
-                } `}
+                className={` ${moveTo !== "Home" ? "button-outlined2" : "button-outlined"
+                  } `}
               >
                 <a href="#contact">Contact Us</a>
               </button>
@@ -248,15 +240,13 @@ export default function Navbar() {
                 {/* {menuOpen ? <FaTimes className='text-white' /> : <FaBars className='text-white' />} */}
                 {menuOpen ? (
                   <FaTimes
-                    className={` ${
-                      moveTo !== "Home" ? "text-white" : "text-black"
-                    } `}
+                    className={` ${moveTo !== "Home" ? "text-white" : "text-black"
+                      } `}
                   />
                 ) : (
                   <FaBars
-                    className={` ${
-                      moveTo !== "Home" ? "text-white" : "text-black"
-                    } `}
+                    className={` ${moveTo !== "Home" ? "text-white" : "text-black"
+                      } `}
                   />
                 )}
               </button>
@@ -275,9 +265,8 @@ export default function Navbar() {
               >
                 <Link
                   href="/"
-                  className={`${
-                    moveTo === "Home" ? "text-hover_blue font-bold" : ""
-                  }`}
+                  className={`${moveTo === "Home" ? "text-hover_blue font-bold" : ""
+                    }`}
                 >
                   Home
                 </Link>
@@ -290,9 +279,8 @@ export default function Navbar() {
               >
                 <Link
                   href="/About"
-                  className={`${
-                    moveTo === "About" ? "text-hover_blue2 font-bold" : ""
-                  }`}
+                  className={`${moveTo === "About" ? "text-hover_blue2 font-bold" : ""
+                    }`}
                 >
                   About us
                 </Link>
@@ -305,9 +293,8 @@ export default function Navbar() {
               >
                 <Link
                   href="/Blog"
-                  className={`${
-                    moveTo === "Blog" ? "text-hover_blue2 font-bold" : ""
-                  }`}
+                  className={`${moveTo === "Blog" ? "text-hover_blue2 font-bold" : ""
+                    }`}
                 >
                   Blogs
                 </Link>
@@ -320,9 +307,8 @@ export default function Navbar() {
               >
                 <Link
                   href="/Products"
-                  className={`${
-                    moveTo === "Products" ? "text-hover_blue2 font-bold" : ""
-                  }`}
+                  className={`${moveTo === "Products" ? "text-hover_blue2 font-bold" : ""
+                    }`}
                 >
                   Products
                 </Link>
@@ -335,9 +321,8 @@ export default function Navbar() {
               >
                 <Link
                   href="/Faqs"
-                  className={`${
-                    moveTo === "FAQs" ? "text-hover_blue2 font-bold" : ""
-                  }`}
+                  className={`${moveTo === "FAQs" ? "text-hover_blue2 font-bold" : ""
+                    }`}
                 >
                   FAQs
                 </Link>
