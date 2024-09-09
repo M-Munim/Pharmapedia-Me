@@ -91,74 +91,72 @@ const Blog = () => {
             {/* <Link href={`/Blog/${blogData.slug}`} key={blogData.id}> */}
             {blogs.map((blogData) => (
 
-              <Link href={`Blog/Blogs/${blogData._id}`}>
-                <div className="relative my-5 w-[360px] md:w-[325px] lg:w-[395px] xl:w-[400px]" key={blogData.id}>
-                  <img
-                    src={blogData.displayImage}
-                    alt='main img'
-                    width={468}
-                    height={358}
-                    className='bg-red-300'
-                  />
-                  {/* <div className="buttons flex absolute gap-1 top-4 left-4 text-white">
+              <div className="relative my-5 w-[360px] md:w-[325px] lg:w-[395px] xl:w-[400px]" key={blogData.id}>
+                <img
+                  src={blogData.displayImage}
+                  alt='main img'
+                  width={468}
+                  height={358}
+                  className='bg-red-300'
+                />
+                {/* <div className="buttons flex absolute gap-1 top-4 left-4 text-white">
                   <p className="button-blog">{blogData.domain}</p>
                   <p className="button-blog">{blogData.subDomain}</p>
                 </div> */}
-                  <div className="absolute top-4 right-4">
-                    <Image
-                      src='/blogVideoPlay.svg'
-                      width={35}
-                      height={35}
-                      className="cursor-pointer"
-                      alt="Blog Data"
-                    />
-                  </div>
-                  <div className="mt-8">
-                    <h2 className="text-xl md:text-3xl font-semibold mb-3">{blogData.title}</h2>
+                <div className="absolute top-4 right-4">
+                  <Image
+                    src='/blogVideoPlay.svg'
+                    width={35}
+                    height={35}
+                    className="cursor-pointer"
+                    alt="Blog Data"
+                  />
+                </div>
+                <div className="mt-8">
+                  <h2 className="text-xl md:text-3xl font-semibold mb-3">{blogData.title}</h2>
 
-                    <div className="w-11/12">
-                      <div className="flex items-center justify-between">
-                        <img
-                          src={blogData.authorImage}
-                          alt="author Img"
-                          // width={100}
-                          // height={100}
-                          className='w-8 md:w-8'
-                        />
-                        <p className="text-xs md:text-base font-bold">{blogData.author}</p>
-                        <div className="w-3 md:w-6 border-1 border-gray-300"></div>
-                        <p className="text-xs md:text-sm lg:text-base text-pClr">{blogData.datetime}</p>
-                        <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                        <Image
-                          src='/shareIcon.svg'
-                          alt="shareIcon-Img"
-                          width={100}
-                          height={100}
-                          className='w-2 md:w-3'
-                        />
-                        <p className="text-xs md:text-sm lg:text-base text-pClr hidden lg:block">{blogData.shares}</p>
-                      </div>
-
-                      <div
-                        className="text-justify my-2"
-                        dangerouslySetInnerHTML={{
-                          __html: blogData.blogContent.length > 100
-                            ? `${blogData.blogContent.slice(0, 90)}...`
-                            : blogData.blogContent
-                        }}
-                      ></div>
-
-
-                      {/* <Link href="Blog/Blogs/" */}
-                      <Link href={`Blog/Blogs/${blogData._id}`}
-                        className="text-base md:text-lg font-semibold hover:border-b-2 border-black">
-                        View Post
-                      </Link>
-
+                  <div className="w-11/12">
+                    <div className="flex items-center justify-between">
+                      <img
+                        src={blogData.authorImage}
+                        alt="author Img"
+                        // width={100}
+                        // height={100}
+                        className='w-8 md:w-8'
+                      />
+                      <p className="text-xs md:text-base font-bold">{blogData.author}</p>
+                      <div className="w-3 md:w-6 border-1 border-gray-300"></div>
+                      <p className="text-xs md:text-sm lg:text-base text-pClr">{blogData.datetime}</p>
+                      <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                      <Image
+                        src='/shareIcon.svg'
+                        alt="shareIcon-Img"
+                        width={100}
+                        height={100}
+                        className='w-2 md:w-3'
+                      />
+                      <p className="text-xs md:text-sm lg:text-base text-pClr hidden lg:block">{blogData.shares}</p>
                     </div>
+
+                    <div
+                      className="text-justify my-2"
+                      dangerouslySetInnerHTML={{
+                        __html: blogData.blogContent.length > 100
+                          ? `${blogData.blogContent.slice(0, 90)}...`
+                          : blogData.blogContent
+                      }}
+                    ></div>
+
+
+                    {/* <Link href="Blog/Blogs/" */}
+                    <Link href={`Blog/Blogs/${blogData._id}`}
+                      className="text-base md:text-lg font-semibold hover:border-b-2 border-black">
+                      View Post
+                    </Link>
+
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           {/* <button className="button-filled z-50 block m-auto">Load more</button> */}
