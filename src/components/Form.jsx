@@ -22,7 +22,7 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // local
-    // const response = await fetch('http://localhost:3000/api/ContactForm', {
+    // const response = await fetch('/api/ContactForm', {
     const response = await fetch('https://pharmapedia-me.vercel.app/api/ContactForm', {
       method: 'POST',
       headers: {
