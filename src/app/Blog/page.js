@@ -21,8 +21,8 @@ const Blog = () => {
     const fetchBlogs = async () => {
       try {
         // local 
-        const response = await axios.get('http://localhost:3000/api/Blog');
-        // const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
+        // const response = await axios.get('http://localhost:3000/api/Blog');
+        const response = await axios.get('https://pharmapedia-me.vercel.app/api/Blog');
         console.log('API Response:', response.data.result); // Log the full response
         setBlogs(response.data.result);
 
