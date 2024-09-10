@@ -19,8 +19,8 @@ const Page = ({ params }) => {
     const fetchProducts = async () => {
       try {
         // local
-        const response = await axios.get(`http://localhost:3000/api/Product/${productSpecificId}`);
-        // const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Product/${productSpecificId}`);
+        // const response = await axios.get(`http://localhost:3000/api/Product/${productSpecificId}`);
+        const response = await axios.get(`https://pharmapedia-me.vercel.app/api/Product/${productSpecificId}`);
         console.log(response.data.result);
         setProducts(response.data.result);
       } catch (error) {
@@ -44,16 +44,17 @@ const Page = ({ params }) => {
             <p className="text-t_grey text-sm sm:text-base md:text-xl w-full  md:w-10/12 text-left md:mt-5">Pharmapedia Private Limited is a company specializing in mobile application development. Our focus lies primarily in the education sector, with an emphasis on medical education and STEM (Science, Technology, Engineering, and Mathematics) education.</p>
           </div>
 
-          <div className="w-full md:w-5/12 flex items-center lg:items-start justify-center mt-5 md:mt-16">
+          <div className="w-full md:w-7/12 flex items-center lg:items-start justify-center mt-5 md:mt-16">
             <img
               src={products.displayImage}
               alt="productImg1"
               // width={100}
               // height={751}
-              className="z-20 w-[250px] md:w-[565px]"
+              // className="z-20 w-[350px] md:w-[765px]"
+              className="z-20 "
             // className="z-20 bg-red-300"
             />
-            <Image src="/Ellipse 41.svg" alt="" width={100} height={100} className='' />
+            {/* <Image src="/Ellipse 41.svg" alt="" width={100} height={100} className='' /> */}
           </div>
         </div>
 
@@ -86,7 +87,7 @@ const Page = ({ params }) => {
                 __html: products.productContent
               }}
             ></div>
-            <Image src="/Ellipse 41.svg" alt="" width={100} height={100} className='absolute left-0 md:left-32 w-12 md:w-[100px]' />
+            {/* <Image src="/Ellipse 41.svg" alt="" width={100} height={100} className='absolute left-0 md:left-32 w-12 md:w-[100px]' /> */}
           </div>
 
           <div className="w-full md:w-10/12 m-auto text-center relative mt-10">
