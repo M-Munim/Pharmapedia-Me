@@ -67,18 +67,18 @@ const Page = () => {
         <div className=''>
           {products.map((product, index) => (
             <div
-              className={`w-11/12 mx-auto my-10 md:my-36 flex flex-col-reverse md:flex-row  items-center justify-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+              className={`mx-auto mb-52 flex flex-col-reverse md:flex-row items-center justify-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
               id='drop'
               key={index}
             >
               <div className="flex items-start justify-end md:justify-center flex-col w-full md:w-1/2 h-auto md:h-[659px]">
-                <div className="w-full px-4 md:w-10/12 md:px-0 z-20 ms-10">
+                <div className="w-full px-14 md:w-9/12 md:px-0 z-20 ms-20 bg-yellow-200]">
                   <h2 className="uppercase font-light text-2xl sm:text-3xl md:text-4xl text-heading_blue lg:tracking-wider">{product.productName}</h2>
                   <div
                     className="text-justify mt-2"
                     dangerouslySetInnerHTML={{
-                      __html: product.productContent.length > 200
-                        ? `${product.productContent.slice(0, 150)}...`
+                      __html: product.productContent.length > 300
+                        ? `${product.productContent.slice(0, 300)} Read More...`
                         : product.productContent
                     }}
                   ></div>
@@ -96,12 +96,13 @@ const Page = () => {
                 <img
                   src={product.displayImage}
                   alt="product"
-                  // width={365}
-                  // height={751}
-                  className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20"
+                // width={365}
+                // height={751}
+                // className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20"
+                className="absolute z-20"
                 />
-                <Image src='Ellipse 40.svg' alt="" width={186} height={186} className='absolute bottom-0 -left-10 z-30' />
-                <Image src='Ellipse 41.svg' alt="" width={100} height={100} className='absolute -bottom-60 right-0 z-20' />
+                <Image src='Ellipse 40.svg' alt="" width={186} height={186} className={`absolute  z-30 ${index % 2 === 0 ? 'bottom-0 left-14' : 'top-40 -right-12'} `} />
+                <Image src='Ellipse 41.svg' alt="" width={100} height={100} className={`absolute z-20 ${index % 2 === 0 ? '-bottom-60 right-0' : '-bottom-28 left-32'} `} />
               </div>
             </div>
           ))}
