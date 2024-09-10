@@ -64,7 +64,7 @@ const Page = () => {
 
         {/* Products started */}
 
-        <div className=''>
+        <div className='mt-20'>
           {products.map((product, index) => (
             <div
               className={`mx-auto mb-52 flex flex-col-reverse md:flex-row items-center justify-center ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
@@ -96,10 +96,10 @@ const Page = () => {
                 <img
                   src={product.displayImage}
                   alt="product"
-                // width={365}
-                // height={751}
-                // className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20"
-                className="absolute z-20"
+                  // width={365}
+                  // height={751}
+                  // className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20"
+                  className={`absolute z-20 ${index % 2 === 0 ? 'right-0' : 'left-0'}`}
                 />
                 <Image src='Ellipse 40.svg' alt="" width={186} height={186} className={`absolute  z-30 ${index % 2 === 0 ? 'bottom-0 left-14' : 'top-40 -right-12'} `} />
                 <Image src='Ellipse 41.svg' alt="" width={100} height={100} className={`absolute z-20 ${index % 2 === 0 ? '-bottom-60 right-0' : '-bottom-28 left-32'} `} />
