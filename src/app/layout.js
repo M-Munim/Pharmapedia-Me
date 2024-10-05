@@ -1,41 +1,3 @@
-// "use client";
-
-// import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
-// import { Inter } from "next/font/google";
-// import "./globals.css";
-// import { usePathname } from "next/navigation";
-// import { ToastContainer } from "react-toastify";
-// const inter = Inter({ subsets: ["latin"] });
-
-// const ClientWrapper = ({ children }) => {
-//   const currentRoute = usePathname();
-//   const adminDashboardRegex = /^\/Dashboard\//; // Define the regex pattern for routes starting with /AdminDashboard/
-//   const shouldRenderHeaderFooter = !adminDashboardRegex.test(currentRoute); // Check if the current route matches the AdminDashboard pattern
-
-//   return (
-//     <html lang="en">
-//       <body className={inter.className}>
-//         {shouldRenderHeaderFooter && <Navbar />}
-//         <ToastContainer />
-//         {children}
-//         {shouldRenderHeaderFooter && <Footer />}
-//       </body>
-//     </html>
-//   );
-// };
-
-// export default ClientWrapper;
-
-
-
-
-
-
-
-
-
-
 'use client';
 
 import Navbar from "@/components/Navbar";
@@ -58,7 +20,7 @@ const ClientWrapper = ({ children }) => {
       <body className={inter.className}>
         {/* Google Analytics */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`} // Replace with your Measurement ID
+          src={`https://www.googletagmanager.com/gtag/js?id=G-GY7RKNSGB4`} // Replace with your Measurement ID
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
